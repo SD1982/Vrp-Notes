@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Notes listing</h1>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#profile">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade show active" id="home">
+            <p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Montant</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for note in notes %}
+                            <tr class="table-active">
+                                <td>{{ note.date | date('d/m/y')}}</td>
+                                <td>{{ note.montant }}</td>
+                                <td>{{ note.type }}</td>
+                                <td>{{ note.statut }}</td>
+                                <td>
+                                    <a href="{{ path('user_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </p>
+        </div>
+        <div class="tab-pane fade" id="profile">
+            <p></p>
+        </div>
+        <div class="tab-pane fade" id="dropdown1">
+            <p></p>
+        </div>
+        <div class="tab-pane fade" id="dropdown2">
+            <p></p>
+        </div>
+    </div>
+{% endblock %}

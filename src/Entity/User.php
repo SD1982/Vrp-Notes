@@ -68,6 +68,11 @@ class User implements UserInterface
      */
     private $notes;
 
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -181,6 +186,14 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
+
+    public function setRoles($roles) : self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
 }

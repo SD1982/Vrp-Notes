@@ -6,10 +6,11 @@
 
 {% block body %}
 
-    {%if editMode %}
+    {% if editMode %}
         <h1>Ajouter un Commercial</h1>
     {% else %}
-        <h1>Modifier un ACommercial</h1>
+        <h1>Modifier les informations de
+        </h1>
     {% endif %}
 
     {{ form_start(form) }}

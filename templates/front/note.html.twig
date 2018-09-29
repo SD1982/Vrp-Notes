@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Notes view</h1>
+
+    {{ note.date | date('d/m/Y') }}
+    {{ note.montant }}
+    {{ note.montant }}
+    {{ note.type }}
+    {{ note.adress }}
+    {{ note.postcode }}
+    {{ note.city }}
+    {{ note.country }}
+    {{ note.latitude }}
+    {{ note.longitude }}
+    {{ note.description }}
+    {{ note.scan }}
+{% endblock %}

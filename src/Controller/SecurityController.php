@@ -15,8 +15,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/user/new", name="security_user_new")
-     * @Route("/user/{id}/edit", name="security_user_edit")
+     * @Route("/admin/user/new", name="security_user_new")
+     * @Route("/admin/user/{id}/edit", name="security_user_edit")
      */
     public function userGestion(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -32,6 +32,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user->getId()) {
                 $user->setCreatedAt(new \DateTime());
+                $user->setRoles(['ROLE_USER']);
             }
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
@@ -39,7 +40,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('admin_home');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('security/user_registration_form.html.twig', [
@@ -53,7 +54,7 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
-        return $this->render('security/login.html.twig');
+        return $this->render('security/login_form.html.twig');
     }
 
     /**
