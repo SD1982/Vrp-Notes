@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Note;
+use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BackController extends AbstractController
 {
@@ -12,9 +14,51 @@ class BackController extends AbstractController
      */
     public function adminDashboard()
     {
-        return $this->render('back/dashboard.html.twig');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+        $notes = $repo->findAll();
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+
+        return $this->render('back/dashboard.html.twig', [
+            'notes' => $notes,
+            'users' => $users
+        ]);
     }
 
+    /**
+     * @Route("/admin/user/listing", name="admin_user_listing")
+     */
+    public function userlisting()
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+
+        $users = $repo->findAll();
+
+        return $this->render('back/users_listing.html.twig', [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user/{id}", name="admin_user_show")
+     */
+    public function userShow($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($id);
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+        $notes = $repo->findByUser($id);
+
+        return $this->render('back/user.html.twig', [
+            'user' => $user,
+            'notes' => $notes
+        ]);
+    }
     /**
      * @Route("/admin/note/listing", name="admin_note_listing")
      */
@@ -24,7 +68,7 @@ class BackController extends AbstractController
 
         $notes = $repo->findAll();
 
-        return $this->render('front/notes_listing.html.twig', [
+        return $this->render('back/notes_listing.html.twig', [
             'notes' => $notes
         ]);
     }
@@ -32,11 +76,15 @@ class BackController extends AbstractController
     /**
      * @Route("/admin/note/{id}", name="admin_note_show")
      */
-    public function noteShow()
+    public function noteShow($id)
     {
         $repo = $this->getDoctrine()->getRepository(Note::class);
+        $note = $repo->find($id);
 
 
-        return $this->render('front/note.html.twig');
+        return $this->render('back/note.html.twig', [
+            'note' => $note,
+
+        ]);
     }
 }

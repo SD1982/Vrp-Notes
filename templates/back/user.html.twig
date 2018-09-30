@@ -3,7 +3,16 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Notes listing</h1>
+
+    <h1>{{ user.name }}</h1>
+
+    <div class="user-infos">
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <p class="lead">
+            <a href="{{ path('security_user_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier les infos</a>
+        </p>
+    </div>
 
     <div>
         <table class="table table-hover">
@@ -28,7 +37,7 @@
                             <td>{{ note.type }}</td>
                             <td>{{ note.statut }}</td>
                             <td>
-                                <a href="{{ path('user_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -3,7 +3,9 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Note du
+    <h1>Note de
+        {{ note.user.name }}
+        du
         {{ note.date | date('d/m/Y') }}</h1>
 
     {{ note.montant }}
@@ -15,4 +17,7 @@
     {{ note.latitude }}
     {{ note.longitude }}
     {{ note.description }}
+    {{ note.scan }}
+
+    <a href="{{ path('admin_note_edit', {'id': note.id}) }}" class="btn btn-primary">Modifier cette note</a>
 {% endblock %}

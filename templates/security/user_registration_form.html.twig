@@ -7,10 +7,11 @@
 {% block body %}
 
     {% if editMode %}
-        <h1>Ajouter un Commercial</h1>
-    {% else %}
         <h1>Modifier les informations de
+            {{ user.name }}
         </h1>
+    {% else %}
+        <h1>Ajouter un Commercial</h1>
     {% endif %}
 
     {{ form_start(form) }}

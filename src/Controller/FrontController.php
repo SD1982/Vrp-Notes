@@ -12,24 +12,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FrontController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        return $this->render('front/home.html.twig');
-    }
-
-    /**
      * @Route("/user", name="user_dashboard")
      */
     public function userDashboard()
     {
-        return $this->render('front/dashboard.html.twig');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+
+        $notes = $repo->findByUser($user);
+
+        return $this->render('front/dashboard.html.twig', [
+            'notes' => $notes,
+            'user' => $user
+        ]);
     }
 
     /**
      * @Route("/user/note/new", name="user_new_note")
-     * @Route("/user/note/{id}/edit", name="user_note_edit")
+     * @Route("/admin/note/{id}/edit", name="admin_note_edit")
      */
     public function noteGestion(Note $note = null, Request $request, ObjectManager $manager)
     {
@@ -88,7 +90,6 @@ class FrontController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Note::class);
 
         $note = $repo->find($id);
-
 
         return $this->render('front/note.html.twig', [
             'note' => $note

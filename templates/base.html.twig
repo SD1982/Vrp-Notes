@@ -11,13 +11,43 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Accueil</a>
+            <a class="navbar-brand" href="/dashboard">Accueil</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_user_listing') }}">Listing des VRP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_note_listing') }}">Listing des notes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('security_user_add') }}">Ajouter un VRP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Consulter la carte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Envoyer un message</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_note_listing') }}">Liste des notes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_new_note') }}">Ajouter une note</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Consulter la carte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Contacter l'admin</a>
+                        </li>
+                    {% endif %}
                     {% if not app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
