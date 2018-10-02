@@ -1,0 +1,149 @@
+body {
+    background-color: #272727;
+}
+
+.container {
+    min-width: 95%;
+}
+
+.pages-header {
+    min-height: 80px;
+    max-height: 10%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px;
+    color: wheat;
+}
+
+.user-page-header {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.pages-header>h1 {
+    color: wheat;
+}
+
+.listings-container {
+    max-height: 70%;
+    padding: 5px;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+
+}
+
+.listings-menu {
+    max-height: 50px;
+}
+
+.user-name {
+    margin: 10px 0;
+}
+
+.user-name>h1 {
+    color: wheat;
+}
+
+.user-infos,
+.admin-action-control {
+    width: 50%;
+    min-height: 200px;
+    max-height: 15%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-infos {
+    width: 100%;
+    min-height: 80px;
+    max-height: 15%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-global-content {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    min-height: 500px;
+    max-height: 70%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-text-content {
+    width: 50%;
+    height: auto;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-scan {
+    width: 50%;
+    min-height: 100%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-scan-img {
+    width: 90%;
+    min-height: 90%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-infos>h1,
+.note-infos>p {
+    color: wheat;
+}

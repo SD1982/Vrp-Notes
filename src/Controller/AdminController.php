@@ -7,7 +7,7 @@ use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class BackController extends AbstractController
+class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin_dashboard")
@@ -23,7 +23,7 @@ class BackController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
 
-        return $this->render('back/dashboard.html.twig', [
+        return $this->render('admin/dashboard.html.twig', [
             'notes' => $notes,
             'users' => $users
         ]);
@@ -38,7 +38,7 @@ class BackController extends AbstractController
 
         $users = $repo->findAll();
 
-        return $this->render('back/users_listing.html.twig', [
+        return $this->render('admin/users_listing.html.twig', [
             'users' => $users
         ]);
     }
@@ -54,7 +54,7 @@ class BackController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $notes = $repo->findByUser($id);
 
-        return $this->render('back/user.html.twig', [
+        return $this->render('admin/user.html.twig', [
             'user' => $user,
             'notes' => $notes
         ]);
@@ -68,7 +68,7 @@ class BackController extends AbstractController
 
         $notes = $repo->findAll();
 
-        return $this->render('back/notes_listing.html.twig', [
+        return $this->render('admin/notes_listing.html.twig', [
             'notes' => $notes
         ]);
     }
@@ -82,9 +82,10 @@ class BackController extends AbstractController
         $note = $repo->find($id);
 
 
-        return $this->render('back/note.html.twig', [
+        return $this->render('admin/note.html.twig', [
             'note' => $note,
 
         ]);
     }
 }
+

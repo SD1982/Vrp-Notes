@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="pages-header">
+        <h1>Admins dashboard</h1>
+    </div>
+
+    <div class="listings-container">
+        <div class="listings">
+            <div class="listings-menu">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#en-cours">Notes en attente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#validées">Notes validées</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#vrp">Vrp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#messages">Messages non lu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#anciens-messages">Messages lu</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="myTabContent" class="tab-content">
+
+                <div class="tab-pane fade show active" id="en-cours">
+                    <div class="notes-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Montant</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in notes %}
+                                    {% if note.user.roles == ['ROLE_USER'] %}
+                                        {% if note.statut == 'En cours' %}
+                                            <tr class="table-warning">
+                                                <td>{{ note.date | date('d/m/y')}}</td>
+                                                <td>{{ note.montant }}</td>
+                                                <td>{{ note.type }}</td>
+                                                <td>{{ note.statut }}</td>
+                                                <td>
+                                                    <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="validées">
+                    <div class="notes-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Montant</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in notes %}
+                                    {% if note.user.roles == ['ROLE_USER'] %}
+                                        {% if note.statut == 'Validée' %}
+                                            <tr class="table-success">
+                                                <td>{{ note.date | date('d/m/y')}}</td>
+                                                <td>{{ note.montant }}</td>
+                                                <td>{{ note.type }}</td>
+                                                <td>{{ note.statut }}</td>
+                                                <td>
+                                                    <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="vrp">
+                    <div class="vrp-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Identifiant</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for user in users %}
+                                    {% if user.roles == ['ROLE_USER'] %}
+                                        <tr class="table-warning">
+                                            <td>{{ user.name }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.username }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_user_show', {'id': user.id}) }}" class="btn btn-primary">Détails</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="messages">
+                    <div class="messages-en-attente-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">1</th>
+                                    <th scope="col">2</th>
+                                    <th scope="col">3</th>
+                                    <th scope="col">4</th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="anciens-messages">
+                    <div class="messages-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">1</th>
+                                    <th scope="col">2</th>
+                                    <th scope="col">3</th>
+                                    <th scope="col">4</th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

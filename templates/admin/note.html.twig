@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="note-page-header">
+        <div class="note-infos">
+            <h1>Note de
+                {{ note.user.name }}
+                du
+                {{ note.date | date('d/m/Y') }}</h1>
+        </div>
+    </div>
+
+    <div class="note-global-content">
+        <div class="note-text-content">
+            <p>Montant TTC de la note en Euros :
+                {{ note.montant }}
+                €</p>
+            <p>Type de note :
+                {{ note.type }}</p>
+
+            <p>
+                Coordonnées :{{ note.adress }}
+                {{ note.postcode }}
+                {{ note.city }}
+                {{ note.country }}</p>
+
+            <p>
+                Description :
+                {{ note.description }}</p>
+            <a href="{{ path('admin_note_edit', {'id': note.id}) }}" class="btn btn-primary">Modifier cette note</a>
+        </div>
+        <div class="note-scan">
+            <div class="not-scan-img">
+                {{ note.scan }}
+            </div>
+        </div>
+        <div class="note-map"></div>
+    </div>
+
+{% endblock %}

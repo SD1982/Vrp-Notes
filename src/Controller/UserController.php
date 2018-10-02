@@ -9,9 +9,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class FrontController extends AbstractController
+class UserController extends AbstractController
 {
-    /**
+    /** 
      * @Route("/user", name="user_dashboard")
      */
     public function userDashboard()
@@ -23,7 +23,7 @@ class FrontController extends AbstractController
 
         $notes = $repo->findByUser($user);
 
-        return $this->render('front/dashboard.html.twig', [
+        return $this->render('user/dashboard.html.twig', [
             'notes' => $notes,
             'user' => $user
         ]);
@@ -59,7 +59,7 @@ class FrontController extends AbstractController
             return $this->redirectToRoute('user_note_show', ['id' => $note->getId()]);
         }
 
-        return $this->render('front/note_registration_form.html.twig', [
+        return $this->render('user/note_registration_form.html.twig', [
             'form' => $form->createView(),
             'editMode' => $note->getId() !== null
         ]);
@@ -77,7 +77,7 @@ class FrontController extends AbstractController
 
         $notes = $repo->findByUser($user);
 
-        return $this->render('front/notes_listing.html.twig', [
+        return $this->render('user/notes_listing.html.twig', [
             'notes' => $notes
         ]);
     }
@@ -91,7 +91,7 @@ class FrontController extends AbstractController
 
         $note = $repo->find($id);
 
-        return $this->render('front/note.html.twig', [
+        return $this->render('user/note.html.twig', [
             'note' => $note
         ]);
     }

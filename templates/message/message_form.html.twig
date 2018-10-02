@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <h1>Envoyer un message</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name,{'label':'Nom, Prénom','attr':{'placeHolder':'nom, prénom'}}) }}
+    {{ form_row(form.email,{'label':'Email','attr':{'placeHolder':'email@blabla.com'}}) }}
+    {{ form_row(form.username,{'label':'Identifiant','attr':{'placeHolder':'identifiant'}}) }}
+    {{ form_row(form.password,{'label':'Password','attr':{'placeHolder':'password'}}) }}
+    {{ form_row(form.confirm_password,{'label':'Confirmation du password','attr':{'placeHolder':'confirm password'}}) }}
+    <button type="submit" class="btn btn-success">Confimer</button>
+    {{ form_end(form) }}
+
+{% endblock %}
