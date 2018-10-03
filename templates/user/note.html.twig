@@ -3,16 +3,41 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Note du
-        {{ note.date | date('d/m/Y') }}</h1>
 
-    {{ note.montant }}
-    {{ note.type }}
-    {{ note.adress }}
-    {{ note.postcode }}
-    {{ note.city }}
-    {{ note.country }}
-    {{ note.latitude }}
-    {{ note.longitude }}
-    {{ note.description }}
+    <div class="note-page-header">
+        <div class="note-infos">
+            <h1>Note du
+                {{ note.date | date('d/m/Y') }}</h1>
+        </div>
+    </div>
+
+    <div class="note-global-content" data-lat="{{ note.latitude }}" data-long="{{ note.longitude }}" data-id="{{ note.id }}">
+        <div class="note-text-content">
+            <p>Montant TTC de la note en Euros :
+                {{ note.montant }}
+                €</p>
+            <p>Type de note :
+                {{ note.type }}</p>
+
+            <p>
+                Coordonnées :
+                {{ note.adress }}
+                {{ note.postcode }}
+                {{ note.city }}
+                {{ note.country }}</p>
+
+            <p>
+                Description :
+                {{ note.description }}</p>
+        </div>
+        <div id="map"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <!-- L'api google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
+    <!-- Le script qui initialise la map et met le marker pour la note-->
+    <script src="{{ asset('build/note-map.js') }}"></script>
 {% endblock %}

@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="note-global-content">
+    <div class="note-global-content" data-lat="{{ note.latitude }}" data-long="{{ note.longitude }}" data-id="{{ note.id }}">
         <div class="note-text-content">
             <p>Montant TTC de la note en Euros :
                 {{ note.montant }}
@@ -22,7 +22,8 @@
                 {{ note.type }}</p>
 
             <p>
-                Coordonnées :{{ note.adress }}
+                Coordonnées :
+                {{ note.adress }}
                 {{ note.postcode }}
                 {{ note.city }}
                 {{ note.country }}</p>
@@ -30,14 +31,19 @@
             <p>
                 Description :
                 {{ note.description }}</p>
-            <a href="{{ path('admin_note_edit', {'id': note.id}) }}" class="btn btn-primary">Modifier cette note</a>
-        </div>
-        <div class="note-scan">
-            <div class="not-scan-img">
-                {{ note.scan }}
+            <div class="note-control">
+                <a href="{{ path('admin_note_edit', {'id': note.id}) }}" class="btn btn-primary">Modifier cette note</a>
+                <a href="" class="btn btn-success">Valider cette note</a>
             </div>
         </div>
-        <div class="note-map"></div>
+        <div id="map"></div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <!-- L'api google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
+    <!-- Le script qui initialise la map et met le marker pour la note-->
+    <script src="{{ asset('build/note-map.js') }}"></script>
 {% endblock %}

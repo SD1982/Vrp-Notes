@@ -81,10 +81,8 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $note = $repo->find($id);
 
-
         return $this->render('admin/note.html.twig', [
             'note' => $note,
-
         ]);
     }
 }

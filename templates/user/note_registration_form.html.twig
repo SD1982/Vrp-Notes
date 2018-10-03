@@ -6,32 +6,42 @@
 
 {% block body %}
 
-    {% if editMode %}
-        <h1>Modifier la note n°</h1>
-    {% else %}
-        <h1>Ajouter une note</h1>
-    {% endif %}
+    <div class="pages-header">
+        {% if editMode %}
+            <h1>Modifier la note de n°</h1>
+        {% else %}
+            <h1>Ajouter une note</h1>
+        {% endif %}
+    </div>
 
     {{ form_start(form) }}
 
-    <div id="note-content">
-        <div id="note-description">
-            {{ form_row(form.date,{'label':'Date de la note'}) }}
-            {{ form_row(form.montant,{'label':'Montant ttc de la note','attr':{'placeHolder':'Montant en euros'}}) }}
-            {{ form_row(form.type,{'label':'type de dépense','attr':{'placeHolder':'ex: carburant'}}) }}
-            {{ form_row(form.description,{'label':'Description','attr':{'placeHolder':'Optionnel'}}) }}
-        </div>
-        <div id="note-coordonnées">
-            {{ form_row(form.adress,{'label':'Adresse de la note','attr':{'placeHolder':'ex: 150 rue du cheval'}}) }}
-            {{ form_row(form.postcode,{'label':'Code postal','attr':{'placeHolder':'ex: 59100'}}) }}
-            {{ form_row(form.city,{'label':'Commune','attr':{'placeHolder':'ex: Paris'}}) }}
-            {{ form_row(form.country,{'label':'Pays','attr':{'placeHolder':'ex: FRANCE'}}) }}
-            {{ form_row(form.latitude,{'label':'Latitude','attr':{'placeHolder':'ex: 48.862725'}}) }}
-            {{ form_row(form.longitude,{'label':'Longitude','attr':{'placeHolder':'ex: 2.287592000000018'}}) }}
-        </div>
-        <button type="submit" class="btn btn-success">Confimer</button>
+    <div class="note-description-form">
+        {{ form_row(form.date,{'label':'Date de la note'}) }}
+        {{ form_row(form.montant,{'label':'Montant ttc de la note','attr':{'placeHolder':'Montant en euros'}}) }}
+        {{ form_row(form.type,{'label':'type de dépense','attr':{'placeHolder':'ex: carburant'}}) }}
+        {{ form_row(form.description,{'label':'Description','attr':{'placeHolder':'Optionnel'}}) }}
     </div>
+    <div class="note-coordonnées-form">
+        {{ form_row(form.adress,{'label':'Adresse de la note','attr':{'placeHolder':'ex: 150 rue du cheval'}}) }}
+        {{ form_row(form.postcode,{'label':'Code postal','attr':{'placeHolder':'ex: 59100'}}) }}
+        {{ form_row(form.city,{'label':'Commune','attr':{'placeHolder':'ex: Paris'}}) }}
+        {{ form_row(form.country,{'label':'Pays','attr':{'placeHolder':'ex: FRANCE'}}) }}
+    </div>
+    <button type="submit" class="action-button btn btn-success">Rechecher les coordonnées GPS</button>
+    <div class="note-lat-lng-form">
+        {{ form_row(form.latitude,{'label':'Latitude'}) }}
+        {{ form_row(form.longitude,{'label':'Longitude'}) }}
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer cette note</button>
 
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    <!-- L'api google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
+    <!-- Le script qui initialise la map et met le marker pour la note-->
+    <script src="{{ asset('build/adress-encoder.js') }}"></script>
 {% endblock %}

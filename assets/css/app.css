@@ -6,6 +6,18 @@ body {
     min-width: 95%;
 }
 
+.login-form {
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px;
+    color: wheat;
+}
+
 .pages-header {
     min-height: 80px;
     max-height: 10%;
@@ -87,23 +99,18 @@ body {
 .note-global-content {
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     width: 100%;
-    min-height: 500px;
-    max-height: 70%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
+    height: 600px;
     margin: 10px 5px;
     padding: 10px;
     color: wheat;
 }
 
 .note-text-content {
-    width: 50%;
-    height: auto;
+    width: 30%;
+    height: 600px;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -116,8 +123,9 @@ body {
 }
 
 .note-scan {
-    width: 50%;
-    min-height: 100%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -129,21 +137,91 @@ body {
     color: wheat;
 }
 
-.note-scan-img {
-    width: 90%;
-    min-height: 90%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
+.note-scan>img {
+    max-width: 90%;
+    max-height: 90%;
 }
 
 .note-infos>h1,
 .note-infos>p {
+    color: wheat;
+}
+
+.note-control {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    margin: 10px 5px;
+    padding: 10px;
+}
+
+#map {
+    height: 600px;
+    width: 68%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+}
+
+/*------------- Formulaire ajout/modif note --------------------*/
+
+.note-form-content {
+    display: -ms-flexbox;
+    display: flex;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-description-form {
+    width: 100%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-coordonnées-form {
+    width: 100%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
+}
+
+.note-lat-lng-form {
+    width: 100%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
     color: wheat;
 }

@@ -69,7 +69,7 @@ class Note
     private $latitude;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="float")
      */
     private $longitude;
 
@@ -99,173 +99,173 @@ class Note
         $this->messages = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate() : ? \DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date) : self
     {
         $this->date = $date;
 
         return $this;
     }
 
-    public function getMontant(): ?float
+    public function getMontant() : ? float
     {
         return $this->montant;
     }
 
-    public function setMontant(float $montant): self
+    public function setMontant(float $montant) : self
     {
         $this->montant = $montant;
 
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType() : ? string
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type) : self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut() : ? string
     {
         return $this->statut;
     }
 
-    public function setStatut(string $statut): self
+    public function setStatut(string $statut) : self
     {
         $this->statut = $statut;
 
         return $this;
     }
 
-    public function getScan(): ?string
+    public function getScan() : ? string
     {
         return $this->scan;
     }
 
-    public function setScan(?string $scan): self
+    public function setScan(? string $scan) : self
     {
         $this->scan = $scan;
 
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAdress() : ? string
     {
         return $this->adress;
     }
 
-    public function setAdress(string $adress): self
+    public function setAdress(string $adress) : self
     {
         $this->adress = $adress;
 
         return $this;
     }
 
-    public function getPostcode(): ?int
+    public function getPostcode() : ? int
     {
         return $this->postcode;
     }
 
-    public function setPostcode(int $postcode): self
+    public function setPostcode(int $postcode) : self
     {
         $this->postcode = $postcode;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getCity() : ? string
     {
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(string $city) : self
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function getCountry(): ?string
+    public function getCountry() : ? string
     {
         return $this->country;
     }
 
-    public function setCountry(string $country): self
+    public function setCountry(string $country) : self
     {
         $this->country = $country;
 
         return $this;
     }
 
-    public function getLatitude(): ?float
+    public function getLatitude() : ? float
     {
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude): self
+    public function setLatitude(float $latitude) : self
     {
         $this->latitude = $latitude;
 
         return $this;
     }
 
-    public function getLongitude(): ?string
+    public function getLongitude() : ? float
     {
         return $this->longitude;
     }
 
-    public function setLongitude(string $longitude): self
+    public function setLongitude(float $longitude) : self
     {
         $this->longitude = $longitude;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription() : ? string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(? string $description) : self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt() : ? \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt) : self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser() : ? User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(? User $user) : self
     {
         $this->user = $user;
 
@@ -275,12 +275,12 @@ class Note
     /**
      * @return Collection|Message[]
      */
-    public function getMessages(): Collection
+    public function getMessages() : Collection
     {
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $message) : self
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
@@ -290,7 +290,7 @@ class Note
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(Message $message) : self
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
