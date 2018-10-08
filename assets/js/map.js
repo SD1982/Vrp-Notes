@@ -61,7 +61,7 @@ var gMap = {
     },
 
     //cette methode affiche les infos de la note du marqueur clicker
-    displayStationInfos: function (note) {
+    displayNoteInfos: function (note) {
         // on fait appel a la methode qui reinitialise le session storage
         gMap.clearStorage(note);
         // on fait appel a la methode qui rentre les donnée de la note en session storage
@@ -76,6 +76,7 @@ var gMap = {
         //apparition du cadre contenant les infos de la note
         $("#note-infos").fadeIn();
     },
+
 
     //cette methode sert a mettre les markers relatif a l'utilisateur
     notesMarkers: function () {
@@ -99,7 +100,7 @@ var gMap = {
                         animation: google.maps.Animation.DROP
                     });
                     marker.addListener('click', function () {
-                        gMap.displayStationInfos(note);
+                        gMap.displayNoteInfos(note);
                     });
                 });
             },

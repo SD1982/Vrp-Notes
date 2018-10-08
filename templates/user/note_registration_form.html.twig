@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
+{% block stylesheets %}{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
-
 {% block body %}
 
     <div class="pages-header">
@@ -37,6 +37,7 @@
         {{ form_row(form.latitude,{'label':'Latitude'}) }}
         {{ form_row(form.longitude,{'label':'Longitude'}) }}
     </div>
+    {{ form_row(form.scan) }}
     <button type="submit" class="btn btn-success">Enregistrer cette note</button>
 
     {{ form_end(form) }}

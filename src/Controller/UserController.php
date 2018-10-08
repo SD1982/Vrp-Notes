@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class UserController extends AbstractController
 {
@@ -54,6 +56,23 @@ class UserController extends AbstractController
                 $note->setCreatedAt(new \DateTime())
                     ->setStatut('En cours')
                     ->setUser($user);
+                /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+                $file = $form->get('scan')->getData();
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+
+                try {
+                    $file->move(
+                        $this->getParameter('scans_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                }
+        
+                    // updates the 'brochure' property to store the PDF file name
+                    // instead of its contents
+                $note->setScan($fileName);
             }
 
             $manager->persist($note);
@@ -81,6 +100,14 @@ class UserController extends AbstractController
             'editMode' => $note->getId() !== null,
             'note' => $note
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 
     /**
@@ -151,7 +178,7 @@ class UserController extends AbstractController
         } else {
 
             return $this->render('user/map.html.twig', [
-                'note' => $notes
+                'note' => $note
             ]);
         }
     }

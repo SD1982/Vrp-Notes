@@ -34,6 +34,12 @@
             <p>
                 Description :
                 {{ note.description }}</p>
+            {% if note.scan %}
+                <p>
+                    <a href="{{ asset('uploads/scans/' ~ note.scan) }}" class="btn btn-primary" target="_blank">Voir le scan</a>
+                </p>
+            {% endif %}
+
         </div>
         <div id="map"></div>
     </div>

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -34,13 +35,14 @@ class NoteType extends AbstractType
                     ),
                 )
             )
+            ->add('scan', FileType::class, array('label' => 'Scan (Fichier PDF)'))
+            ->add('description', TextareaType::class)
             ->add('adress')
             ->add('postcode')
             ->add('city')
             ->add('country')
             ->add('latitude')
-            ->add('longitude')
-            ->add('description', TextareaType::class);
+            ->add('longitude');
     }
 
     public function configureOptions(OptionsResolver $resolver)

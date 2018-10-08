@@ -81,6 +81,18 @@ body {
     color: wheat;
 }
 
+.user-registration-form {
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px;
+    color: wheat;
+}
+
 .note-infos {
     width: 100%;
     min-height: 80px;
@@ -217,7 +229,7 @@ body {
     color: wheat;
 }
 
-/*------------- Formulaire ajout/modif note --------------------*/
+/*------------- note-form --------------------*/
 
 .note-form-content {
     display: -ms-flexbox;

@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
@@ -88,11 +89,6 @@ class Note
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="note")
-     */
-    private $messages;
 
     public function __construct()
     {
@@ -272,34 +268,4 @@ class Note
         return $this;
     }
 
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages() : Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message) : self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setNote($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message) : self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getNote() === $this) {
-                $message->setNote(null);
-            }
-        }
-
-        return $this;
-    }
 }

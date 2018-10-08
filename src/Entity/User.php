@@ -73,11 +73,6 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="destinataire")
-     */
-    private $messages;
-
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -198,37 +193,6 @@ class User implements UserInterface
     public function setRoles($roles) : self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setDestinataire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getDestinataire() === $this) {
-                $message->setDestinataire(null);
-            }
-        }
 
         return $this;
     }
