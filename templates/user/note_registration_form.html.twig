@@ -8,7 +8,11 @@
 
     <div class="pages-header">
         {% if editMode %}
-            <h1>Modifier la note de n°</h1>
+            <h1>Modifier la note de
+                {{ note.user.name }}
+                du
+                {{ note.date| date('d/m/Y') }}
+            </h1>
         {% else %}
             <h1>Ajouter une note</h1>
         {% endif %}
@@ -36,7 +40,6 @@
     <button type="submit" class="btn btn-success">Enregistrer cette note</button>
 
     {{ form_end(form) }}
-
 {% endblock %}
 
 {% block javascripts %}
@@ -44,4 +47,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
     <!-- Le script qui initialise la map et met le marker pour la note-->
     <script src="{{ asset('build/adress-encoder.js') }}"></script>
+    <script src="{{ asset('build/app.js') }}"></script>
 {% endblock %}

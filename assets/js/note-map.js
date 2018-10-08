@@ -13,16 +13,20 @@ var gMap = {
 
     //cette methode sert a initialiser la map
     initMap: function () {
+        var noteCoords = document.querySelector('.note-global-content');
+        var lat = parseFloat(noteCoords.dataset.lat);
+        var long = parseFloat(noteCoords.dataset.long);
+        var myLatLng = {
+            lat: lat,
+            lng: long
+        };
         gMap.map = new google.maps.Map(document.getElementById("map"), {
-            center: {
-                lat: 46.52863469527167,
-                lng: 2.43896484375
-            },
-            zoom: 5
+            center: myLatLng,
+            zoom: 10
         });
     },
 
-
+    //cette methode sert a mettre le marker relatif a la une seule note
     noteMarker: function () {
         var noteCoords = document.querySelector('.note-global-content');
         var lat = parseFloat(noteCoords.dataset.lat);
@@ -31,7 +35,6 @@ var gMap = {
             lat: lat,
             lng: long
         };
-        console.log(myLatLng);
         marker = new google.maps.Marker({
             map: gMap.map,
             position: myLatLng,

@@ -21,9 +21,6 @@ var encoder = {
                 'address': fullAdress
             }, function (results, status) {
                 if (status == 'OK') {
-                    console.log(status);
-                    console.log(results[0].geometry.location.lat());
-                    console.log(results[0].geometry.location.lng());
                     $('#note_latitude').val(results[0].geometry.location.lat());
                     $('#note_longitude').val(results[0].geometry.location.lng());
                 } else {

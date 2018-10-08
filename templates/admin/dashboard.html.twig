@@ -50,7 +50,8 @@
                                         {% if note.statut == 'En cours' %}
                                             <tr class="table-warning">
                                                 <td>{{ note.date | date('d/m/y')}}</td>
-                                                <td>{{ note.montant }}</td>
+                                                <td>{{ note.montant }}
+                                                    €</td>
                                                 <td>{{ note.type }}</td>
                                                 <td>{{ note.statut }}</td>
                                                 <td>

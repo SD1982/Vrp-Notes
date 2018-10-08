@@ -17,9 +17,15 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
+    /*CSS*/
+
+    /*IMG*/
+
+    /*JS*/
     .addEntry('app', './assets/js/app.js')
     .addEntry('note-map', './assets/js/note-map.js')
     .addEntry('adress-encoder', './assets/js/adress-encoder.js')
+    .addEntry('map', './assets/js/map.js')
 
     /*
      * FEATURE CONFIG

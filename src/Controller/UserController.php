@@ -6,7 +6,10 @@ use App\Entity\Note;
 use App\Form\NoteType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
@@ -56,12 +59,27 @@ class UserController extends AbstractController
             $manager->persist($note);
             $manager->flush();
 
-            return $this->redirectToRoute('user_note_show', ['id' => $note->getId()]);
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            $user = $this->getUser();
+                // On récupère la liste des rôles d'un utilisateur
+            $roles = $user->getRoles();
+                // On transforme le tableau d'instance en tableau simple
+            $rolesTab = array_map(function ($role) {
+                return $role;
+            }, $roles);
+                // Si admin redirection vers le dashboard admin
+            if (in_array('ROLE_ADMIN', $rolesTab, true)) {
+                return $this->redirectToRoute('admin_note_show', ['id' => $note->getId()]);
+                // Si user redirection vers le dashboard user
+            } elseif (in_array('ROLE_USER', $rolesTab, true)) {
+                return $this->redirectToRoute('user_note_show', ['id' => $note->getId()]);
+            }
         }
 
         return $this->render('user/note_registration_form.html.twig', [
             'form' => $form->createView(),
-            'editMode' => $note->getId() !== null
+            'editMode' => $note->getId() !== null,
+            'note' => $note
         ]);
     }
 
@@ -96,5 +114,46 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/user/map", name="user_map")   
+     */
+    public function markersMap(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+
+        $notes = $repo->findByUser($user);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonData = array();
+            $idx = 0;
+            foreach ($notes as $note) {
+                $noteInfos = array(
+                    'date' => $note->getDate(),
+                    'montant' => $note->getMontant(),
+                    'type' => $note->getType(),
+                    'statut' => $note->getStatut(),
+                    'address' => $note->getAdress(),
+                    'postcode' => $note->getPostcode(),
+                    'city' => $note->getCity(),
+                    'country' => $note->getCountry(),
+                    'lat' => $note->getLatitude(),
+                    'lng' => $note->getLongitude(),
+                    'description' => $note->getDescription(),
+                );
+                $jsonData[$idx++] = $noteInfos;
+            }
+            return new JsonResponse($jsonData);
+
+        } else {
+
+            return $this->render('user/map.html.twig', [
+                'note' => $notes
+            ]);
+        }
+    }
 
 }

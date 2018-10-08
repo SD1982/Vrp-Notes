@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="pages-header">
+        <h1>Map</h1>
+    </div>
+    <div id="map-container">
+        <div id="note-infos">
+            <p id="montant"></p>
+            <p id="type"></p>
+            <p id="statut"></p>
+            <p id="address"></p>
+            <p id="description"></p>
+        </div>
+        <div id="map"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <!-- L'api google map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
+    <!-- Le script qui initialise la map et met les markers -->
+    <script src="{{ asset('build/map.js') }}"></script>
+
+{% endblock %}

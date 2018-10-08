@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Entity\User;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -80,6 +81,23 @@ class AdminController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $note = $repo->find($id);
+
+        return $this->render('admin/note.html.twig', [
+            'note' => $note,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/valid/note/{id}", name="admin_note_validation")
+     */
+    public function noteValidation($id, ObjectManager $manager)
+    {
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+        $note = $repo->find($id);
+
+        $note->setStatut('Validée');
+        $manager->persist($note);
+        $manager->flush();
 
         return $this->render('admin/note.html.twig', [
             'note' => $note,

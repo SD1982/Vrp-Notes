@@ -122,6 +122,13 @@ body {
     color: wheat;
 }
 
+.note-text-content>h1 {
+    text-align: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: wheat;
+}
+
 .note-scan {
     -ms-flex-pack: center;
     justify-content: center;
@@ -155,6 +162,7 @@ body {
     padding: 10px;
 }
 
+/*------------- map--------------------*/
 #map {
     height: 600px;
     width: 68%;
@@ -166,6 +174,47 @@ body {
     -o-border-radius: 15px;
     margin: 10px 5px;
     padding: 10px;
+}
+
+/*------------- map globale --------------------*/
+#map-container {
+
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#map-container>#map {
+    height: 600px;
+    width: 100%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+}
+
+#note-infos {
+    background-color: #272727;
+    display: none;
+    width: 100%;
+    height: auto;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 5px;
+    padding: 10px;
+    color: wheat;
 }
 
 /*------------- Formulaire ajout/modif note --------------------*/
