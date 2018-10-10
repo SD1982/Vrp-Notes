@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Form\NoteType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +14,15 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class UserController extends AbstractController
+
+class UserController extends Controller
 {
     /** 
      * @Route("/user", name="user_dashboard")
      */
-    public function userDashboard()
+    public function userDashboard(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -27,6 +30,19 @@ class UserController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Note::class);
 
         $notes = $repo->findByUser($user);
+      
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+        
+            // Paginate the results of the query
+        $notes = $paginator->paginate(
+                // Doctrine Query, not results
+            $notes,
+                // Define the page parameter
+            $request->query->getInt('page', 1),
+                // Items per page
+            6
+        );
 
         return $this->render('user/dashboard.html.twig', [
             'notes' => $notes,
@@ -59,7 +75,6 @@ class UserController extends AbstractController
                 /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
                 $file = $form->get('scan')->getData();
                 $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-
 
                 try {
                     $file->move(
@@ -108,23 +123,6 @@ class UserController extends AbstractController
     private function generateUniqueFileName()
     {
         return md5(uniqid());
-    }
-
-    /**
-     * @Route("/user/note/listing", name="user_note_listing")
-     */
-    public function notelisting()
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user = $this->getUser();
-
-        $repo = $this->getDoctrine()->getRepository(Note::class);
-
-        $notes = $repo->findByUser($user);
-
-        return $this->render('user/notes_listing.html.twig', [
-            'notes' => $notes
-        ]);
     }
 
     /**
@@ -178,7 +176,7 @@ class UserController extends AbstractController
         } else {
 
             return $this->render('user/map.html.twig', [
-                'note' => $note
+                'notes' => $notes
             ]);
         }
     }

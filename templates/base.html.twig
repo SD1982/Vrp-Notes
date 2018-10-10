@@ -21,12 +21,9 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <!-- autre presentation du menu <li class="nav-item"> <a class="nav-link" href="{{ path('admin_user_listing') }}">Listing des VRP</a> </li> <li class="nav-item"> <a class="nav-link" href="{{ path('admin_note_listing') }}">Listing des notes</a> </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('security_user_add') }}">Ajouter un VRP</a>
                         </li>
-                        <!-- autre presentation du menu <li class="nav-item"> <a class="nav-link" href="">Consulter la carte</a> </li> -->
-                        <!-- autre presentation du menu <li class="nav-item"> <a class="nav-link" href="">Envoyer un message</a> </li> -->
                     {% endif %}
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">

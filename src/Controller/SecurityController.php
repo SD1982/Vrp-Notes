@@ -9,8 +9,11 @@ use App\Form\AdminRegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\HttpFoundation\Response;
 
 class SecurityController extends AbstractController
 {
@@ -20,6 +23,22 @@ class SecurityController extends AbstractController
      */
     public function userGestion(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonData = array();
+            $idx = 0;
+            foreach ($users as $user) {
+                $usersInfos = array(
+                    'username' => $user->getUsername(),
+                );
+                $jsonData[$idx++] = $usersInfos;
+            }
+            return new JsonResponse($jsonData);
+        }
 
         if (!$user) {
             $user = new User();
@@ -32,7 +51,6 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user->getId()) {
                 $user->setCreatedAt(new \DateTime());
-                $user->setRoles(['ROLE_USER']);
             }
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
@@ -55,7 +73,6 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
-
         return $this->render('security/login_form.html.twig');
     }
 

@@ -286,3 +286,16 @@ body {
     padding: 10px;
     color: wheat;
 }
+
+/*------------- pagination button --------------------*/
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    display: none;
+}
+
+.pagination {
+    margin: 0;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
