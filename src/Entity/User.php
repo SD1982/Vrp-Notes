@@ -73,6 +73,21 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $rib;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $embauche;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -193,6 +208,42 @@ class User implements UserInterface
     public function setRoles($roles) : self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(int $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getRib(): ?string
+    {
+        return $this->rib;
+    }
+
+    public function setRib(string $rib): self
+    {
+        $this->rib = $rib;
+
+        return $this;
+    }
+
+    public function getEmbauche(): ?\DateTimeInterface
+    {
+        return $this->embauche;
+    }
+
+    public function setEmbauche(\DateTimeInterface $embauche): self
+    {
+        $this->embauche = $embauche;
 
         return $this;
     }

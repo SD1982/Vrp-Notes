@@ -34,6 +34,7 @@ class SecurityController extends AbstractController
             foreach ($users as $user) {
                 $usersInfos = array(
                     'username' => $user->getUsername(),
+                    'email' => $user->getEmail(),
                 );
                 $jsonData[$idx++] = $usersInfos;
             }

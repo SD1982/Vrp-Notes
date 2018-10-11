@@ -26,7 +26,7 @@ Encore
     .addEntry('note-map', './assets/js/note-map.js')
     .addEntry('adress-encoder', './assets/js/adress-encoder.js')
     .addEntry('map', './assets/js/map.js')
-    .addEntry('check-username', './assets/js/check-username.js')
+    .addEntry('check', './assets/js/check.js')
 
     /*
      * FEATURE CONFIG

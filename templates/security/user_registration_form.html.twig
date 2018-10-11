@@ -18,13 +18,18 @@
 
     {{ form_start(form) }}
     <div class="user-registration-form">
-        {{ form_row(form.name,{'label':'Nom, Prénom','attr':{'placeHolder':'nom, prénom'}}) }}
-        {{ form_row(form.email,{'label':'Email','attr':{'placeHolder':'email@blabla.com'}}) }}
+        {{ form_row(form.name,{'label':'Nom, Prénom','attr':{'placeHolder':'Nom, Prénom'}}) }}
+        {{ form_row(form.email,{'label':'Email','attr':{'placeHolder':'adresse mail du Vrp'}}) }}
+        {{ form_row(form.embauche,{'label':'Date d\'embauche'}) }}
+        {{ form_row(form.phone,{'label':'Téléphone','attr':{'placeHolder':'ex 0102030405'}}) }}
+        {{ form_row(form.rib,{'label':'Relevé d\'identité bancaire','attr':{'placeHolder':'rib du Vrp'}}) }}
+        <p id="email-check"></p>
         {{ form_row(form.username,{'label':'Identifiant','attr':{'placeHolder':'identifiant'}}) }}
+        <p id="username-check"></p>
         {{ form_row(form.roles,{'label':'Roles'}) }}
         {{ form_row(form.password,{'label':'Password','attr':{'placeHolder':'password'}}) }}
         {{ form_row(form.confirm_password,{'label':'Confirmation du password','attr':{'placeHolder':'confirm password'}}) }}
-        <button type="submit" class="btn btn-success">Confimer</button>
+        <button type="submit" class="btn btn-success" id="user_registration_button">Confimer</button>
     </div>
 
     {{ form_end(form) }}
@@ -32,5 +37,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/check-username.js') }}"></script>
+    <script src="{{ asset('build/check.js') }}"></script>
 {% endblock %}

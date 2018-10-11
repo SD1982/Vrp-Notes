@@ -229,8 +229,9 @@ body {
     color: wheat;
 }
 
-/*------------- note-form --------------------*/
+/*------------- forms --------------------*/
 
+/*------------- note-form --------------------*/
 .note-form-content {
     display: -ms-flexbox;
     display: flex;
