@@ -20,15 +20,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class UserController extends Controller
 {
     /** 
-     * @Route("/user", name="user_dashboard")
+     * @Route("/user/home", name="user_home")
      */
-    public function userDashboard(Request $request)
+    public function home()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
-        $repo = $this->getDoctrine()->getRepository(Note::class);
+        return $this->render('user/home.html.twig', [
+            'user' => $user
+        ]);
+    }
 
+    /** 
+     * @Route("/user/validated", name="user_validated_notes")
+     */
+    public function validatedNotes(Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
         $notes = $repo->findByUser($user);
       
             /* @var $paginator \Knp\Component\Pager\Paginator */
@@ -44,11 +57,64 @@ class UserController extends Controller
             6
         );
 
-        return $this->render('user/dashboard.html.twig', [
-            'notes' => $notes,
+        $validatedNotes = $repo->findBy([
+            "user" => $user,
+            "statut" => 'Validée'
+        ]);
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+        
+             // Paginate the results of the query
+        $validatedNotes = $paginator->paginate(
+            // Doctrine Query, not results
+            $validatedNotes,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('user/validated_notes.html.twig', [
+            'validated_notes' => $validatedNotes,
             'user' => $user
         ]);
     }
+
+    /** 
+     * @Route("/user/waiting", name="user_waiting_notes")
+     */
+    public function waitingNotes(Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+
+        $notValidatedNotes = $repo->findBy([
+            "user" => $user,
+            "statut" => 'En cours'
+        ]);
+         
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+        
+             // Paginate the results of the query
+        $notValidatedNotes = $paginator->paginate(
+            // Doctrine Query, not results
+            $notValidatedNotes,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('user/waiting_notes.html.twig', [
+            'not_validated_notes' => $notValidatedNotes,
+            'user' => $user
+        ]);
+    }
+
 
     /**
      * @Route("/user/note/new", name="user_new_note")
@@ -72,22 +138,24 @@ class UserController extends Controller
                 $note->setCreatedAt(new \DateTime())
                     ->setStatut('En cours')
                     ->setUser($user);
+
                 /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
                 $file = $form->get('scan')->getData();
-                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                if ($file != null) {
+                    $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
-                try {
-                    $file->move(
-                        $this->getParameter('scans_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
+                    try {
+                        $file->move(
+                            $this->getParameter('scans_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+
+                    }
+
+                    $note->setScan($fileName);
                 }
-        
-                    // updates the 'brochure' property to store the PDF file name
-                    // instead of its contents
-                $note->setScan($fileName);
+
             }
 
             $manager->persist($note);
@@ -112,7 +180,7 @@ class UserController extends Controller
 
         return $this->render('user/note_registration_form.html.twig', [
             'form' => $form->createView(),
-            'editMode' => $note->getId() !== null,
+            'adminEditMode' => $note->getId() !== null,
             'note' => $note
         ]);
     }
@@ -125,11 +193,24 @@ class UserController extends Controller
         return md5(uniqid());
     }
 
+
+    /**
+     *  @Route("/user/note/{id}/add/scan", name="user_note_add_scan")
+     */
+    public function addScan(Note $note, Request $request, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+    }
+
     /**
      * @Route("/user/note/{id}", name="user_note_show")
      */
     public function noteShow($id)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
         $repo = $this->getDoctrine()->getRepository(Note::class);
 
         $note = $repo->find($id);

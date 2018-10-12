@@ -6,12 +6,10 @@ var app = {
 
     // cette methode servira a appeler toute les methodes du script en une seule fois au chargement de la page
     init: function () {
-        app.displayCalendar();
+
     },
 
-    displayCalendar: function () {
-        $('.datepicker').datepicker();
-    }
+
 
 }
 

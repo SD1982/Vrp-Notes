@@ -24,7 +24,7 @@ var encoder = {
                     $('#note_latitude').val(results[0].geometry.location.lat());
                     $('#note_longitude').val(results[0].geometry.location.lng());
                 } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    alert('Cette adresse n\'existe pas ');
                 }
             });
         });

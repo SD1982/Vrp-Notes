@@ -24,6 +24,8 @@ class SecurityController extends AbstractController
     public function userGestion(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
 
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
 
@@ -52,6 +54,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user->getId()) {
                 $user->setCreatedAt(new \DateTime());
+                $user->setRoles(['ROLE_USER']);
             }
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
@@ -78,9 +81,9 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/home", name="home")
      */
-    public function dashboard()
+    public function home()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -90,12 +93,12 @@ class SecurityController extends AbstractController
         $rolesTab = array_map(function ($role) {
             return $role;
         }, $roles);
-            // Si admin redirection vers le dashboard admin
+            // Si admin redirection vers le home admin
         if (in_array('ROLE_ADMIN', $rolesTab, true)) {
-            return $this->redirectToRoute('admin_dashboard');
-            // Si user redirection vers le dashboard user
+            return $this->redirectToRoute('admin_home');
+            // Si user redirection vers le home user
         } elseif (in_array('ROLE_USER', $rolesTab, true)) {
-            return $this->redirectToRoute('user_dashboard');
+            return $this->redirectToRoute('user_home');
         }
     }
 

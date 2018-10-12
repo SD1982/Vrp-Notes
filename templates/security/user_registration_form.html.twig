@@ -26,7 +26,6 @@
         <p id="email-check"></p>
         {{ form_row(form.username,{'label':'Identifiant','attr':{'placeHolder':'identifiant'}}) }}
         <p id="username-check"></p>
-        {{ form_row(form.roles,{'label':'Roles'}) }}
         {{ form_row(form.password,{'label':'Password','attr':{'placeHolder':'password'}}) }}
         {{ form_row(form.confirm_password,{'label':'Confirmation du password','attr':{'placeHolder':'confirm password'}}) }}
         <button type="submit" class="btn btn-success" id="user_registration_button">Confimer</button>
@@ -37,5 +36,8 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/check.js') }}"></script>
+    <script src="{{ asset('build/app.js') }}"></script>
+    {% if not editMode %}
+        <script src="{{ asset('build/check.js') }}"></script>
+    {% endif %}
 {% endblock %}

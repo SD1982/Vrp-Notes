@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="pages-header">
+        <h1>Listing des Salariés</h1>
+    </div>
+
+    <div class="vrp-listing">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Tél</th>
+                    <th scope="col">RIB</th>
+                    <th scope="col">Date d'embauche</th>
+                    <th scope="col">Identifiant</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
+                    {% if user.roles == ['ROLE_USER'] %}
+                        <tr class="table-secondary">
+                        {% endif %}
+                        {% if user.roles == ['ROLE_ADMIN'] %}
+                            <tr class="table-info">
+                            {% endif %}
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>0{{ user.phone }}</td>
+                            <td>{{ user.rib }}</td>
+                            <td>{{ user.embauche | date('d/m/y')}}</td>
+                            <td>{{ user.username }}</td>
+                            <td>
+                                <a href="{{ path('admin_user_show', {'id': user.id}) }}" class="btn btn-primary">Détails</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(users) }}
+            </div>
+        </div>
+
+    {% endblock %}

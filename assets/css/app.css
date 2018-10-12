@@ -4,18 +4,7 @@ body {
 
 .container {
     min-width: 95%;
-}
 
-.login-form {
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 0;
-    padding: 10px;
-    color: wheat;
 }
 
 .pages-header {
@@ -230,6 +219,21 @@ body {
 }
 
 /*------------- forms --------------------*/
+/*------------- login-form --------------------*/
+.login-form {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px;
+    color: wheat;
+}
 
 /*------------- note-form --------------------*/
 .note-form-content {
@@ -299,4 +303,54 @@ body {
     -ms-flex-pack: center;
     justify-content: center;
     text-align: center;
+}
+
+/* ------------------- Footer -------------------------------------------------- */
+
+#contact {
+    height: auto;
+    width: 100%;
+    border: 3px solid wheat;
+    border-radius: 15px;
+    margin: 15px auto;
+    background-color: #272727;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#contact nav {
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#menuReseaux {
+    margin: 0;
+    padding: 0;
+    display: -ms-flexbox;
+    display: flex;
+    list-style: none;
+}
+
+#menuReseaux li {
+    padding: 25px;
+}
+
+#menuReseaux i {
+    color: wheat;
+    font-size: 25px;
+}
+
+.copyright {
+    margin: 0;
+    font-size: 25px;
+}
+
+.mailContact {
+    margin: 15px auto;
+    font-size: 25px;
 }

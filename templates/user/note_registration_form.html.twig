@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
+
 {% block stylesheets %}{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block body %}
 
     <div class="pages-header">
-        {% if editMode %}
+        {% if adminEditMode %}
             <h1>Modifier la note de
                 {{ note.user.name }}
                 du
@@ -19,7 +20,6 @@
     </div>
 
     {{ form_start(form) }}
-
     <div class="note-description-form">
         {{ form_row(form.date,{'label':'Date de la note'}) }}
         {{ form_row(form.montant,{'label':'Montant ttc de la note','attr':{'placeHolder':'Montant en euros'}}) }}
@@ -39,7 +39,6 @@
     </div>
     {{ form_row(form.scan) }}
     <button type="submit" class="btn btn-success">Enregistrer cette note</button>
-
     {{ form_end(form) }}
 {% endblock %}
 
@@ -48,5 +47,4 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-QOyka6s8nWe_oDO0sXzj5pZYFP42JYE"></script>
     <!-- Le script qui initialise la map et met le marker pour la note-->
     <script src="{{ asset('build/adress-encoder.js') }}"></script>
-    <script src="{{ asset('build/app.js') }}"></script>
 {% endblock %}

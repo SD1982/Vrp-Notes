@@ -12,49 +12,113 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends Controller
 {
-    /**
-     * @Route("/admin", name="admin_dashboard")
+    /** 
+     * @Route("/admin/home", name="admin_home")
      */
-    public function adminDashboard(Request $request)
+    public function home()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
-        $repo = $this->getDoctrine()->getRepository(User::class);
-        $users = $repo->findAll();
-      
-        /* @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator = $this->get('knp_paginator');
-    
-        // Paginate the results of the query
-        $users = $paginator->paginate(
-            // Doctrine Query, not results
-            $users,
-            // Define the page parameter
-            $request->query->getInt('page', 1),
-            // Items per page
-            15
-        );
+        return $this->render('admin/home.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /** 
+     * @Route("/admin/validated", name="admin_validated_notes")
+     */
+    public function validatedNotes(Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
 
         $repo = $this->getDoctrine()->getRepository(Note::class);
-        $notes = $repo->findAll();
-        
+
+
+        $validatedNotes = $repo->findBy([
+            "statut" => 'Validée'
+        ]);
             /* @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
         
              // Paginate the results of the query
-        $notes = $paginator->paginate(
+        $validatedNotes = $paginator->paginate(
             // Doctrine Query, not results
-            $notes,
+            $validatedNotes,
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
             6
         );
 
-        return $this->render('admin/dashboard.html.twig', [
-            'notes' => $notes,
-            'users' => $users
+        return $this->render('admin/validated_notes.html.twig', [
+            'validated_notes' => $validatedNotes,
+        ]);
+    }
+
+    /** 
+     * @Route("/admin/waiting", name="admin_waiting_notes")
+     */
+    public function waitingNotes(Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $repo = $this->getDoctrine()->getRepository(Note::class);
+
+        $notValidatedNotes = $repo->findBy([
+            "statut" => 'En cours',
+        ]);
+         
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+        
+             // Paginate the results of the query
+        $notValidatedNotes = $paginator->paginate(
+            // Doctrine Query, not results
+            $notValidatedNotes,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('admin/waiting_notes.html.twig', [
+            'not_validated_notes' => $notValidatedNotes,
+        ]);
+    }
+
+    /** 
+     * @Route("/admin/employee", name="admin_employee_listing")
+     */
+    public function vrp(Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+        dump($users);
+         
+            /* @var $paginator \Knp\Component\Pager\Paginator */
+        $paginator = $this->get('knp_paginator');
+        
+             // Paginate the results of the query
+        $users = $paginator->paginate(
+            // Doctrine Query, not results
+            $users,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('admin/employee_listing.html.twig', [
+            'users' => $users,
+
         ]);
     }
 
@@ -63,26 +127,17 @@ class AdminController extends Controller
      */
     public function userShow($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $this->getDoctrine()->getRepository(User::class);
         $user = $repo->find($id);
 
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $notes = $repo->findByUser($id);
 
-                    /* @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator = $this->get('knp_paginator');
-        
-                    // Paginate the results of the query
-        $notes = $paginator->paginate(
-                   // Doctrine Query, not results
-            $notes,
-                   // Define the page parameter
-            $request->query->getInt('page', 1),
-                   // Items per page
-            6
-        );
 
-        return $this->render('admin/user.html.twig', [
+
+        return $this->render('admin/commercial.html.twig', [
             'user' => $user,
             'notes' => $notes
         ]);
@@ -93,6 +148,8 @@ class AdminController extends Controller
      */
     public function noteShow($id)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $note = $repo->find($id);
 
@@ -106,6 +163,8 @@ class AdminController extends Controller
      */
     public function noteValidation($id, ObjectManager $manager)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $repo = $this->getDoctrine()->getRepository(Note::class);
         $note = $repo->find($id);
 

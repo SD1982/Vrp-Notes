@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,23 +19,12 @@ class UserRegistrationType extends AbstractType
             ->add('name', TextType::class)
             ->add('email', TextType::class)
             ->add('username', TextType::class)
-            ->add(
-                'roles',
-                ChoiceType::class,
-                array(
-                    'choices' => array(
-                        'VRP' => 'ROLE_USER',
-                        'ADMIN' => 'ROLE_ADMIN',
-                    ),
-                )
-            )
             ->add('embauche', DateType::class, array(
                 'widget' => 'single_text',
                 'attr' => ['class' => 'datepicker'],
             ))
             ->add('phone', TextType::class)
             ->add('rib', TextType::class)
-            ->add('embauche', TextType::class)
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class);
     }

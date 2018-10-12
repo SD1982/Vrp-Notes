@@ -74,7 +74,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $phone;
 
@@ -84,7 +84,7 @@ class User implements UserInterface
     private $rib;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $embauche;
 
@@ -212,36 +212,36 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone() : ? string
     {
         return $this->phone;
     }
 
-    public function setPhone(int $phone): self
+    public function setPhone(string $phone) : self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getRib(): ?string
+    public function getRib() : ? string
     {
         return $this->rib;
     }
 
-    public function setRib(string $rib): self
+    public function setRib(string $rib) : self
     {
         $this->rib = $rib;
 
         return $this;
     }
 
-    public function getEmbauche(): ?\DateTimeInterface
+    public function getEmbauche() : ? \DateTimeInterface
     {
         return $this->embauche;
     }
 
-    public function setEmbauche(\DateTimeInterface $embauche): self
+    public function setEmbauche(\DateTimeInterface $embauche) : self
     {
         $this->embauche = $embauche;
 

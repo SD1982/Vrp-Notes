@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="pages-header">
+        <h1>Notes Validées</h1>
+    </div>
+
+    <div class="notes-listing">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Vrp</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Scan</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for validated_note in validated_notes %}
+                    <tr class="table-success">
+                        <td>
+                            <a href="{{ path('admin_user_show', {'id': validated_note.user.id}) }}" class="btn btn-primary">{{ validated_note.user.name }}</a>
+                        </td>
+                        <td>{{ validated_note.date | date('d/m/y')}}</td>
+                        <td>{{ validated_note.montant }}
+                            €</td>
+                        <td>{{ validated_note.type }}</td>
+                        <td>{{ validated_note.statut }}</td>
+                        {% if validated_note.scan %}
+                            <td>oui</td>
+                        {% else %}
+                            <td>non</td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ path('user_note_show', {'id': validated_note.id}) }}" class="btn btn-primary">Consulter</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(validated_notes) }}
+        </div>
+    </div>
+
+{% endblock %}

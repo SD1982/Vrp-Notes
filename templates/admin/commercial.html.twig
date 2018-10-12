@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="user-page-header">
+        <div class="user-infos">
+            <div class="user-name">
+                <h1>{{ user.name }}</h1>
+            </div>
+            <p>Adresse email :
+                {{ user.email }}</p>
+            <p>Date d'embauche :
+                {{ user.embauche| date('d/m/y') }}</p>
+            <p>Téléphone :
+                {{ user.phone }}</p>
+            <p>Rib :
+                {{ user.rib }}</p>
+            <p>Identifiant :
+                {{ user.username }}</p>
+            <p class="lead">
+                <a href="{{ path('security_user_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier les infos</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="listings-container">
+        <div class="listing">
+            <div class="listings-menu">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#notes-en-cours">Notes en attente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#notes-validées">Notes validées</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="myTabContent" class="tab-content">
+
+                <div class="tab-pane fade show active" id="notes-en-cours">
+                    <div class="notes-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Montant</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Scan</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in notes %}
+                                    {% if note.statut == 'En cours' %}
+                                        <tr class="table-warning">
+                                            <td>{{ note.date | date('d/m/y')}}</td>
+                                            <td>{{ note.montant }}
+                                                €</td>
+                                            <td>{{ note.type }}</td>
+
+                                            {% if note.scan %}
+                                                <td>oui</td>
+                                            {% else %}
+                                                <td>non</td>
+                                            {% endif %}
+                                            <td>
+                                                <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="notes-validées">
+                    <div class="notes-listing">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Montant</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Scan</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in notes %}
+                                    {% if note.statut == 'Validée' %}
+                                        <tr class="table-success">
+                                            <td>{{ note.date | date('d/m/y')}}</td>
+                                            <td>{{ note.montant }}
+                                                €</td>
+                                            <td>{{ note.type }}</td>
+                                            {% if note.scan %}
+                                                <td>oui</td>
+                                            {% else %}
+                                                <td>non</td>
+                                            {% endif %}
+                                            <td>
+                                                <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    {% endblock %}

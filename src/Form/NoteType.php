@@ -11,14 +11,21 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+
 class NoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('scan', fileType::class, array(
+                'label' => 'Scan (Fichier PDF)',
+                'required' => false
+            ))
             ->add('date', DateType::class, array(
                 'widget' => 'single_text',
-                'attr' => ['class' => 'datepicker'],
+                'attr' => [
+                    'class' => 'datepicker'
+                ],
             ))
             ->add('montant')
             ->add(
@@ -35,8 +42,9 @@ class NoteType extends AbstractType
                     ),
                 )
             )
-            ->add('scan', FileType::class, array('label' => 'Scan (Fichier PDF)'))
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, array(
+                'required' => false
+            ))
             ->add('adress')
             ->add('postcode')
             ->add('city')
