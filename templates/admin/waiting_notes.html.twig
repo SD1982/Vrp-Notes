@@ -4,41 +4,39 @@
 
 {% block body %}
 
-    <div class="pages-header">
+    <div class="waiting-notes-pages-header">
         <h1>Notes en attente de validation</h1>
     </div>
 
-    <div class="notes-listing">
+    <div class="waiting-notes-listing">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Vrp</th>
+                    <th scope="col" class="smartphone-device tablet-device">Vrp</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Montant</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Scan</th>
+                    <th scope="col" class="smartphone-device tablet-device">Montant</th>
+                    <th scope="col" class="smartphone-device tablet-device">Type</th>
+                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for not_validated_note in not_validated_notes %}
                     <tr class="table-warning">
-                        <td>
+                        <td class="smartphone-device tablet-device">
                             <a href="{{ path('admin_user_show', {'id': not_validated_note.user.id}) }}" class="btn btn-primary">{{ not_validated_note.user.name }}</a>
                         </td>
                         <td>{{ not_validated_note.date | date('d/m/y')}}</td>
-                        <td>{{ not_validated_note.montant }}
+                        <td class="smartphone-device tablet-device">{{ not_validated_note.montant }}
                             €</td>
-                        <td>{{ not_validated_note.type }}</td>
-                        <td>{{ not_validated_note.statut }}</td>
+                        <td class="smartphone-device tablet-device">{{ not_validated_note.type }}</td>
                         {% if not_validated_note.scan %}
-                            <td>oui</td>
+                            <td class="smartphone-device tablet-device">oui</td>
                         {% else %}
-                            <td>non</td>
+                            <td class="smartphone-device tablet-device">non</td>
                         {% endif %}
                         <td>
-                            <a href="{{ path('user_note_show', {'id': not_validated_note.id}) }}" class="btn btn-primary">Consulter</a>
+                            <a href="{{ path('admin_note_show', {'id': not_validated_note.id}) }}" class="btn btn-primary">Consulter</a>
                         </td>
                     </tr>
                 {% endfor %}

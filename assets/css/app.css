@@ -1,356 +1,267 @@
+@media all and (max-width: 600px) {
+    .smartphone-device {
+        display: none;
+    }
+}
+
+@media all and (min-width: 600px) {}
+
+@media all and (min-width: 768px) {}
+
 body {
     background-color: #272727;
 }
 
 .container {
     min-width: 95%;
-
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.pages-header {
-    min-height: 80px;
-    max-height: 10%;
+.row {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/*------------- pages headers --------------------*/
+
+.login-form,
+.home-pages-header,
+.waiting-notes-pages-header,
+.validated-notes-pages-header,
+.employee-pages-header,
+.note-form-pages-header,
+.note-pages-header,
+.commercial-page-header,
+.employee-form-page-header,
+.map-page-header {
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin: 10px 0;
     padding: 10px;
+    margin: 10px;
     color: wheat;
 }
 
-.user-page-header {
-    display: -ms-flexbox;
-    display: flex;
+/*------------- pages h1,h2 --------------------*/
+
+.home-pages-header>h1,
+.waiting-notes-pages-header>h1,
+.validated-notes-pages-header>h1,
+.employee-pages-header>h1,
+.note-form-pages-header>h1,
+.note-pages-header>h1,
+.commercial-page-header>h1,
+.note-text-content>h1,
+.employee-form-page-header>h1,
+.map-page-header>h1,
+.note-scan-form>h2 {
+    color: wheat;
 }
 
-.pages-header>h1 {
+/*------------- paginated listing --------------------*/
+
+.waiting-notes-listing,
+.validated-notes-listing,
+.employee-listing {
+    overflow: hidden;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.table th,
+.table td {
+    padding: 1px;
+    vertical-align: unset;
+}
+
+.pagination {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.page-item.disabled .page-link,
+.page-item:last-child .page-link,
+.page-item:first-child .page-link {
+    display: none;
+}
+
+.page-item.active .page-link {
+    border: 1px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    background-color: wheat;
+    color: #272727;
+}
+
+.page-link {
+    border: 1px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    background-color: #272727;
+    color: wheat;
+}
+
+/*------------- global page content --------------------*/
+
+.commercial-infos,
+.user-registration-form,
+.note-global-content,
+.note-text-content {
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
     color: wheat;
 }
 
 .listings-container {
-    max-height: 70%;
-    padding: 5px;
+    overflow: hidden;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-
-}
-
-.listings-menu {
-    max-height: 50px;
-}
-
-.user-name {
-    margin: 10px 0;
-}
-
-.user-name>h1 {
-    color: wheat;
-}
-
-.user-infos,
-.admin-action-control {
-    width: 50%;
-    min-height: 200px;
-    max-height: 15%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
     padding: 10px;
-    color: wheat;
+    margin: 10px;
 }
 
-.user-registration-form {
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 0;
-    padding: 10px;
-    color: wheat;
-}
-
-.note-infos {
-    width: 100%;
-    min-height: 80px;
-    max-height: 15%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
-}
-
-.note-global-content {
+/*------------- add / update notes form page --------------------*/
+.note-form {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    width: 100%;
-    height: 600px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
 }
 
-.note-text-content {
-    width: 30%;
-    height: 600px;
+.form-group {
+    margin: 0;
+}
+
+.note-form-content {
+    min-width: 350px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin: 10px 5px;
     padding: 10px;
+    margin: 10px;
     color: wheat;
 }
 
-.note-text-content>h1 {
-    text-align: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    color: wheat;
-}
-
-.note-scan {
+.note-description-form,
+.note-coordonnées-form {
     -ms-flex-pack: center;
     justify-content: center;
     text-align: center;
+    text-align: -webkit-center;
+    text-align: -ms-center;
+    text-align: -moz-center;
+    width: 90%;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin: 10px 5px;
+    height: auto;
     padding: 10px;
+    margin: 10px;
     color: wheat;
 }
 
-.note-scan>img {
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.note-infos>h1,
-.note-infos>p {
+.note-lat-lng-form,
+.note-scan-form {
+    width: 90%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
     color: wheat;
 }
 
-.note-control {
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-    margin: 10px 5px;
-    padding: 10px;
+.note-form-button,
+.action-button {
+    margin: 5px;
 }
 
-/*------------- map--------------------*/
+.custom-file {
+    position: initial;
+}
+
+.custom-file-input {
+    opacity: 1;
+    width: auto;
+}
+
+.custom-file-label {
+    display: none;
+}
+
+/*------------- individual note map --------------------*/
 #map {
-    height: 600px;
-    width: 68%;
+    height: 400px;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin: 10px 5px;
     padding: 10px;
+    margin: 10px;
+    color: wheat;
 }
 
-/*------------- map globale --------------------*/
-#map-container {
-
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#map-container>#map {
-    height: 600px;
-    width: 100%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-}
+/*------------- map page --------------------*/
 
 #note-infos {
-    background-color: #272727;
     display: none;
-    width: 100%;
-    height: auto;
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    margin: 10px 5px;
     padding: 10px;
+    margin: 10px;
     color: wheat;
-}
-
-/*------------- forms --------------------*/
-/*------------- login-form --------------------*/
-.login-form {
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 0;
-    padding: 10px;
-    color: wheat;
-}
-
-/*------------- note-form --------------------*/
-.note-form-content {
-    display: -ms-flexbox;
-    display: flex;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
-}
-
-.note-description-form {
-    width: 100%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
-}
-
-.note-coordonnées-form {
-    width: 100%;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
-}
-
-.note-lat-lng-form {
-    width: 100%;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 5px;
-    padding: 10px;
-    color: wheat;
-}
-
-/*------------- pagination button --------------------*/
-.page-item:first-child .page-link,
-.page-item:last-child .page-link {
-    display: none;
-}
-
-.pagination {
-    margin: 0;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-}
-
-/* ------------------- Footer -------------------------------------------------- */
-
-#contact {
-    height: auto;
-    width: 100%;
-    border: 3px solid wheat;
-    border-radius: 15px;
-    margin: 15px auto;
-    background-color: #272727;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#contact nav {
-    width: 100%;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#menuReseaux {
-    margin: 0;
-    padding: 0;
-    display: -ms-flexbox;
-    display: flex;
-    list-style: none;
-}
-
-#menuReseaux li {
-    padding: 25px;
-}
-
-#menuReseaux i {
-    color: wheat;
-    font-size: 25px;
-}
-
-.copyright {
-    margin: 0;
-    font-size: 25px;
-}
-
-.mailContact {
-    margin: 15px auto;
-    font-size: 25px;
 }

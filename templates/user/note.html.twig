@@ -4,14 +4,13 @@
 
 {% block body %}
 
-    <div class="note-page-header">
-        <div class="note-infos">
-            <h1>Note du
-                {{ note.date | date('d/m/Y') }}</h1>
-        </div>
+    <div class="note-pages-header">
+        <h1>Note du
+            {{ note.date | date('d/m/Y') }}</h1>
     </div>
 
     <div class="note-global-content" data-lat="{{ note.latitude }}" data-long="{{ note.longitude }}">
+
         <div class="note-text-content">
             {% if note.statut == 'Validée' %}
                 <h1>Validée</h1>
@@ -23,14 +22,12 @@
                 €</p>
             <p>Type de note :
                 {{ note.type }}</p>
-
             <p>
                 Coordonnées :
                 {{ note.adress }}
                 {{ note.postcode }}
                 {{ note.city }}
                 {{ note.country }}</p>
-
             <p>
                 Description :
                 {{ note.description }}</p>
@@ -39,13 +36,17 @@
                     <a href="{{ asset('uploads/scans/' ~ note.scan) }}" class="btn btn-primary" target="_blank">Voir le scan</a>
                 </p>
             {% else %}
-                <p>
-                    <a href="{{ path('user_note_add_scan', {'id': note.id}) }}" class="btn btn-primary">Ajouter un scan</a>
-                </p>
+                <div class="note-scan-form">
+                    {{ form_start(form) }}
+                    {{ form_row(form.scan) }}
+                    <button type="submit" class="note-form-button btn btn-success">Enregistrer ce scan</button>
+                    {{ form_end(form) }}
+                </div>
             {% endif %}
-
         </div>
+
         <div id="map"></div>
+
     </div>
 
 {% endblock %}

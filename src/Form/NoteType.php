@@ -18,8 +18,9 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('scan', fileType::class, array(
-                'label' => 'Scan (Fichier PDF)',
-                'required' => false
+                'label' => 'Scan de la note',
+                'required' => false,
+                'data_class' => null
             ))
             ->add('date', DateType::class, array(
                 'widget' => 'single_text',

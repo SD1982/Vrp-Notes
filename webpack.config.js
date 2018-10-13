@@ -18,7 +18,6 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     /*CSS*/
-
     /*IMG*/
 
     /*JS*/

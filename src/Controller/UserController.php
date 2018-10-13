@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Form\NoteType;
-
+use App\Form\ScanType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 class UserController extends Controller
@@ -42,20 +42,6 @@ class UserController extends Controller
         $user = $this->getUser();
 
         $repo = $this->getDoctrine()->getRepository(Note::class);
-        $notes = $repo->findByUser($user);
-      
-            /* @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator = $this->get('knp_paginator');
-        
-            // Paginate the results of the query
-        $notes = $paginator->paginate(
-                // Doctrine Query, not results
-            $notes,
-                // Define the page parameter
-            $request->query->getInt('page', 1),
-                // Items per page
-            6
-        );
 
         $validatedNotes = $repo->findBy([
             "user" => $user,
@@ -71,7 +57,7 @@ class UserController extends Controller
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            5
         );
 
         return $this->render('user/validated_notes.html.twig', [
@@ -93,7 +79,7 @@ class UserController extends Controller
 
         $notValidatedNotes = $repo->findBy([
             "user" => $user,
-            "statut" => 'En cours'
+            "statut" => 'En cours',
         ]);
          
             /* @var $paginator \Knp\Component\Pager\Paginator */
@@ -106,7 +92,7 @@ class UserController extends Controller
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            5
         );
 
         return $this->render('user/waiting_notes.html.twig', [
@@ -195,12 +181,47 @@ class UserController extends Controller
 
 
     /**
-     *  @Route("/user/note/{id}/add/scan", name="user_note_add_scan")
+     *  @Route("/user/note/{id}", name="user_add_scan")
      */
     public function addScan(Note $note, Request $request, ObjectManager $manager)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
+
+        $form = $this->createForm(ScanType::class, $note);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('scan')->getData();
+            if ($file != null) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('scans_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $note->setScan($fileName);
+            }
+
+            $manager->persist($note);
+            $manager->flush();
+
+            return $this->redirectToRoute('user_note_show', ['id' => $note->getId()]);
+
+        }
+
+        return $this->render('user/note.html.twig', [
+            'form' => $form->createView(),
+            'note' => $note
+        ]);
     }
 
     /**

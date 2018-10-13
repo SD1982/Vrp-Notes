@@ -4,20 +4,18 @@
 
 {% block body %}
 
-    <div class="pages-header">
-        <h1>Bienvenue
-            {{ user.name }}</h1>
+    <div class="validated-notes-pages-header">
+        <h1>Notes Validées</h1>
     </div>
 
-    <div class="notes-listing">
+    <div class="validated-notes-listing">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Date</th>
-                    <th scope="col">Montant</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Scan</th>
+                    <th scope="col" class="smartphone-device tablet-device">Montant</th>
+                    <th scope="col" class="smartphone-device tablet-device">Type</th>
+                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -25,14 +23,13 @@
                 {% for validated_note in validated_notes %}
                     <tr class="table-success">
                         <td>{{ validated_note.date | date('d/m/y')}}</td>
-                        <td>{{ validated_note.montant }}
+                        <td class="smartphone-device tablet-device">{{ validated_note.montant }}
                             €</td>
-                        <td>{{ validated_note.type }}</td>
-                        <td>{{ validated_note.statut }}</td>
+                        <td class="smartphone-device tablet-device">{{ validated_note.type }}</td>
                         {% if validated_note.scan %}
-                            <td>oui</td>
+                            <td class="smartphone-device tablet-device">oui</td>
                         {% else %}
-                            <td>non</td>
+                            <td class="smartphone-device tablet-device">non</td>
                         {% endif %}
                         <td>
                             <a href="{{ path('user_note_show', {'id': validated_note.id}) }}" class="btn btn-primary">Consulter</a>

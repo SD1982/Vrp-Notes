@@ -4,24 +4,28 @@
 
 {% block body %}
 
-    <div class="user-page-header">
-        <div class="user-infos">
-            <div class="user-name">
-                <h1>{{ user.name }}</h1>
-            </div>
-            <p>Adresse email :
-                {{ user.email }}</p>
-            <p>Date d'embauche :
-                {{ user.embauche| date('d/m/y') }}</p>
-            <p>Téléphone :
-                {{ user.phone }}</p>
-            <p>Rib :
-                {{ user.rib }}</p>
-            <p>Identifiant :
-                {{ user.username }}</p>
-            <p class="lead">
-                <a href="{{ path('security_user_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier les infos</a>
-            </p>
+    <div class="commercial-page-header">
+        <h1>{{ user.name }}</h1>
+    </div>
+
+    <div class="commercial-infos">
+        <p>Adresse email :
+            {{ user.email }}</p>
+        <p>Date d'embauche :
+            {{ user.embauche| date('d/m/y') }}</p>
+        <p>Téléphone :
+            {{ user.phone }}</p>
+        <p>Rib :
+            {{ user.rib }}</p>
+        <p>Identifiant :
+            {{ user.username }}</p>
+        <div class="commercial-control">
+            <a href="{{ path('security_user_edit', {'id': user.id}) }}" class="btn btn-primary action-button">Modifier les infos</a>
+
+            <a href="{{ path('security_user_delete', {'id': user.id}) }}" class="btn btn-danger action-button">Supprimer ce commercial</a>
+            {% if user.roles == ["ROLE_USER"] %}
+                <a href="{{ path('security_user_update_role', {'id': user.id}) }}" class="btn btn-info action-button">Passer Admin</a>
+            {% endif %}
         </div>
     </div>
 
@@ -46,8 +50,8 @@
                                 <tr>
                                     <th scope="col">Date</th>
                                     <th scope="col">Montant</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Scan</th>
+                                    <th scope="col" class="smartphone-device tablet-device">Type</th>
+                                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -58,12 +62,12 @@
                                             <td>{{ note.date | date('d/m/y')}}</td>
                                             <td>{{ note.montant }}
                                                 €</td>
-                                            <td>{{ note.type }}</td>
+                                            <td class="smartphone-device tablet-device">{{ note.type }}</td>
 
                                             {% if note.scan %}
-                                                <td>oui</td>
+                                                <td class="smartphone-device tablet-device">oui</td>
                                             {% else %}
-                                                <td>non</td>
+                                                <td class="smartphone-device tablet-device">non</td>
                                             {% endif %}
                                             <td>
                                                 <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
@@ -83,8 +87,8 @@
                                 <tr>
                                     <th scope="col">Date</th>
                                     <th scope="col">Montant</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Scan</th>
+                                    <th scope="col" class="smartphone-device tablet-device">Type</th>
+                                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -95,11 +99,11 @@
                                             <td>{{ note.date | date('d/m/y')}}</td>
                                             <td>{{ note.montant }}
                                                 €</td>
-                                            <td>{{ note.type }}</td>
+                                            <td class="smartphone-device tablet-device">{{ note.type }}</td>
                                             {% if note.scan %}
-                                                <td>oui</td>
+                                                <td class="smartphone-device tablet-device">oui</td>
                                             {% else %}
-                                                <td>non</td>
+                                                <td class="smartphone-device tablet-device">non</td>
                                             {% endif %}
                                             <td>
                                                 <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>

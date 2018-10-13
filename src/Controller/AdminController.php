@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Entity\User;
+use App\Form\ScanType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\ORM\EntityManager;
 
 class AdminController extends Controller
 {
@@ -50,7 +54,7 @@ class AdminController extends Controller
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            5
         );
 
         return $this->render('admin/validated_notes.html.twig', [
@@ -83,7 +87,7 @@ class AdminController extends Controller
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            5
         );
 
         return $this->render('admin/waiting_notes.html.twig', [
@@ -101,7 +105,6 @@ class AdminController extends Controller
 
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
-        dump($users);
          
             /* @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
@@ -144,6 +147,50 @@ class AdminController extends Controller
     }
 
     /**
+     *  @Route("/admin/note/{id}", name="admin_add_scan")
+     */
+    public function addScan(Note $note, Request $request, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $form = $this->createForm(ScanType::class, $note);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('scan')->getData();
+            if ($file != null) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('scans_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $note->setScan($fileName);
+            }
+
+            $manager->persist($note);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_note_show', ['id' => $note->getId()]);
+
+        }
+
+        return $this->render('admin/note.html.twig', [
+            'form' => $form->createView(),
+            'note' => $note
+        ]);
+    }
+
+    /**
      * @Route("/admin/note/{id}", name="admin_note_show")
      */
     public function noteShow($id)
@@ -171,6 +218,26 @@ class AdminController extends Controller
         $note->setStatut('Validée');
         $manager->persist($note);
         $manager->flush();
+
+        return $this->render('admin/note.html.twig', [
+            'note' => $note,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/note/{id}/delete", name="admin_note_delete")
+     */
+    public function noteDelete($id, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $note = $entityManager->getRepository(Note::class)->find($id);
+
+        $entityManager->remove($note);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_waiting_notes');
 
         return $this->render('admin/note.html.twig', [
             'note' => $note,

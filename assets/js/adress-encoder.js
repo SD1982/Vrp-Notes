@@ -11,7 +11,7 @@ var encoder = {
     // methode qui convertit une adresse en coordonnées gps
     encodeAdress: function () {
         geocoder = new google.maps.Geocoder();
-        $('.action-button').click(function () {
+        $('.adress-encode-button').click(function () {
             var adress = document.getElementById('note_adress').value;
             var postcode = document.getElementById('note_postcode').value;
             var city = document.getElementById('note_city').value;

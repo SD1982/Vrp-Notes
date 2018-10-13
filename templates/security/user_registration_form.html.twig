@@ -6,17 +6,18 @@
 
 {% block body %}
 
-    <div class="pages-header">
+    <div class="employee-form-page-header">
         {% if editMode %}
             <h1>Modifier les informations de
                 {{ user.name }}
             </h1>
         {% else %}
-            <h1>Ajouter un Commercial</h1>
+            <h1>Ajouter un Salarié</h1>
         {% endif %}
     </div>
 
     {{ form_start(form) }}
+
     <div class="user-registration-form">
         {{ form_row(form.name,{'label':'Nom, Prénom','attr':{'placeHolder':'Nom, Prénom'}}) }}
         {{ form_row(form.email,{'label':'Email','attr':{'placeHolder':'adresse mail du Vrp'}}) }}
@@ -28,7 +29,7 @@
         <p id="username-check"></p>
         {{ form_row(form.password,{'label':'Password','attr':{'placeHolder':'password'}}) }}
         {{ form_row(form.confirm_password,{'label':'Confirmation du password','attr':{'placeHolder':'confirm password'}}) }}
-        <button type="submit" class="btn btn-success" id="user_registration_button">Confimer</button>
+        <button type="submit" class="btn btn-success note-form-button" id="user_registration_button">Confimer</button>
     </div>
 
     {{ form_end(form) }}

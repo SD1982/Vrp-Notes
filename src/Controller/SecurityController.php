@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManager;
 
 class SecurityController extends AbstractController
 {
@@ -69,6 +70,48 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
             'editMode' => $user->getId() !== null,
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user/{id}/update/role", name="security_user_update_role")
+     */
+    public function userUpdateRole($id, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        $user->setRoles(['ROLE_ADMIN']);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_user_show', ['id' => $user->getId()]);
+
+        return $this->render('admin/commercial.html.twig', [
+            'user' => $user,
+            'notes' => $notes
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user/{id}/delete", name="security_user_delete")
+     */
+    public function userDelete($id, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_employee_listing');
+
+        return $this->render('admin/commercial.html.twig', [
+            'user' => $user,
+            'notes' => $notes
         ]);
     }
 

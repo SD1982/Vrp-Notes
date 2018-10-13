@@ -4,24 +4,23 @@
 
 {% block body %}
 
-    <div class="pages-header">
+    <div class="employee-pages-header">
         <h1>Listing des Salariés</h1>
     </div>
 
-    <div class="vrp-listing">
+    <div class="employee-listing">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Nom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Tél</th>
-                    <th scope="col">RIB</th>
-                    <th scope="col">Date d'embauche</th>
+                    <th scope="col" class="smartphone-device tablet-device">Email</th>
+                    <th scope="col" class="smartphone-device tablet-device">Tél</th>
+                    <th scope="col" class="smartphone-device tablet-device">RIB</th>
+                    <th scope="col" class="smartphone-device tablet-device">Date d'embauche</th>
                     <th scope="col">Identifiant</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for user in users %}
                     {% if user.roles == ['ROLE_USER'] %}
@@ -31,10 +30,10 @@
                             <tr class="table-info">
                             {% endif %}
                             <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>0{{ user.phone }}</td>
-                            <td>{{ user.rib }}</td>
-                            <td>{{ user.embauche | date('d/m/y')}}</td>
+                            <td class="smartphone-device tablet-device">{{ user.email }}</td>
+                            <td class="smartphone-device tablet-device">{{ user.phone }}</td>
+                            <td class="smartphone-device tablet-device">{{ user.rib }}</td>
+                            <td class="smartphone-device tablet-device">{{ user.embauche | date('d/m/y')}}</td>
                             <td>{{ user.username }}</td>
                             <td>
                                 <a href="{{ path('admin_user_show', {'id': user.id}) }}" class="btn btn-primary">Détails</a>

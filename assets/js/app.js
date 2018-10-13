@@ -9,8 +9,6 @@ var app = {
 
     },
 
-
-
 }
 
 //au chargement de la page on fait appel a la méthode init qui permet de faire appel a d'autre méthodes
