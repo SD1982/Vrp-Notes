@@ -36,7 +36,8 @@ body {
 .note-pages-header,
 .commercial-page-header,
 .employee-form-page-header,
-.map-page-header {
+.map-page-header,
+.message-form-pages-header {
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -60,7 +61,10 @@ body {
 .note-text-content>h1,
 .employee-form-page-header>h1,
 .map-page-header>h1,
-.note-scan-form>h2 {
+.message-form-pages-header>h1,
+.note-scan-form>h2,
+.message-box-title>h3,
+.actu-box-title>h3 {
     color: wheat;
 }
 
@@ -121,11 +125,13 @@ body {
 }
 
 /*------------- global page content --------------------*/
-
+.message-box-title,
+.actu-box-title,
 .commercial-infos,
 .user-registration-form,
 .note-global-content,
-.note-text-content {
+.note-text-content,
+.message-form-content {
     border: 2px solid wheat;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -147,6 +153,52 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
+}
+
+.home-page-content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    color: wheat;
+}
+
+.message-box,
+.actu-box {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 300px;
+    width: 100%;
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    color: wheat;
+}
+
+.message {
+    border: 2px solid wheat;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    color: wheat;
 }
 
 /*------------- add / update notes form page --------------------*/

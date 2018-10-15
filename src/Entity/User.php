@@ -88,10 +88,33 @@ class User implements UserInterface
      */
     private $embauche;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="author", orphanRemoval=true)
+     */
+    private $messages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="recipient")
+     */
+    private $receivedMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="auteur", orphanRemoval=true)
+     */
+    private $messagesSend;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="destinataire", orphanRemoval=true)
+     */
+    private $messagesReceived;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->receivedMessages = new ArrayCollection();
+        $this->messagesSend = new ArrayCollection();
+        $this->messagesReceived = new ArrayCollection();
     }
 
     public function getId() : ? int
@@ -244,6 +267,99 @@ class User implements UserInterface
     public function setEmbauche(\DateTimeInterface $embauche) : self
     {
         $this->embauche = $embauche;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages() : Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message) : self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message) : self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getAuthor() === $this) {
+                $message->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesSend(): Collection
+    {
+        return $this->messagesSend;
+    }
+
+    public function addMessagesSend(Message $messagesSend): self
+    {
+        if (!$this->messagesSend->contains($messagesSend)) {
+            $this->messagesSend[] = $messagesSend;
+            $messagesSend->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesSend(Message $messagesSend): self
+    {
+        if ($this->messagesSend->contains($messagesSend)) {
+            $this->messagesSend->removeElement($messagesSend);
+            // set the owning side to null (unless already changed)
+            if ($messagesSend->getAuteur() === $this) {
+                $messagesSend->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesReceived(): Collection
+    {
+        return $this->messagesReceived;
+    }
+
+    public function addMessagesReceived(Message $messagesReceived): self
+    {
+        if (!$this->messagesReceived->contains($messagesReceived)) {
+            $this->messagesReceived[] = $messagesReceived;
+            $messagesReceived->setDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesReceived(Message $messagesReceived): self
+    {
+        if ($this->messagesReceived->contains($messagesReceived)) {
+            $this->messagesReceived->removeElement($messagesReceived);
+            // set the owning side to null (unless already changed)
+            if ($messagesReceived->getDestinataire() === $this) {
+                $messagesReceived->setDestinataire(null);
+            }
+        }
 
         return $this;
     }

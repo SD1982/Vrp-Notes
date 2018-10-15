@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Note;
 use App\Form\NoteType;
 use App\Form\ScanType;
+use App\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,8 +28,15 @@ class UserController extends Controller
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
+        $repo = $this->getDoctrine()->getRepository(Message::class);
+        $messagesNonLus = $repo->findBy([
+            "destinataire" => $user,
+            "statut" => 'Non lu'
+        ]);
+
         return $this->render('user/home.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'messagesNonLus' => $messagesNonLus
         ]);
     }
 

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="message-form-pages-header">
+        <h1>Enoyer un message</h1>
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="message-form-content">
+        <div class="message-form">
+            {{ form_row(form.destinataire,{'label':'Selectionner le destinataire *'}) }}
+            {{ form_row(form.content,{'label':'Message *'}) }}
+        </div>
+        <button type="submit" class="note-form-button btn btn-success">Envoyer ce message</button>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
