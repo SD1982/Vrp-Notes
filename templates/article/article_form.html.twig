@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="article-form-pages-header">
+        {% if editMode %}
+            <h1>Modification d'article
+            </h1>
+        {% else %}
+            <h1>Ajouter un article</h1>
+        {% endif %}
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="article-form-content">
+        <div class="article-form">
+            {{ form_row(form.title,{'label':'titre de l\'article *'}) }}
+            {{ form_row(form.image,{'label':'adresse de votre image'}) }}
+            {{ form_row(form.content,{'label':'article *'}) }}
+        </div>
+        <button type="submit" class="note-form-button btn btn-success">Enregistrer cet article</button>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

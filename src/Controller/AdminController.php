@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Note;
 use App\Entity\User;
 use App\Form\ScanType;
+use App\Entity\Message;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +14,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Doctrine\ORM\EntityManager;
 
 class AdminController extends Controller
 {
@@ -24,9 +25,17 @@ class AdminController extends Controller
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
-        return $this->render('admin/home.html.twig', [
-            'user' => $user
+        $repo = $this->getDoctrine()->getRepository(Message::class);
+        $messagesNonLus = $repo->findBy([
+            "destinataire" => $user,
+            "statut" => 'Non lu'
         ]);
+
+        return $this->render('admin/home.html.twig', [
+            'user' => $user,
+            'messagesNonLus' => $messagesNonLus
+        ]);
+
     }
 
     /** 

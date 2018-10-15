@@ -21,102 +21,103 @@
             {{ user.username }}</p>
         <div class="commercial-control">
             <a href="{{ path('security_user_edit', {'id': user.id}) }}" class="btn btn-primary action-button">Modifier les infos</a>
-
-            <a href="{{ path('security_user_delete', {'id': user.id}) }}" class="btn btn-danger action-button">Supprimer ce commercial</a>
+            <a href="{{ path('security_user_delete', {'id': user.id}) }}" class="btn btn-danger action-button">Supprimer ce profil</a>
             {% if user.roles == ["ROLE_USER"] %}
                 <a href="{{ path('security_user_update_role', {'id': user.id}) }}" class="btn btn-info action-button">Passer Admin</a>
             {% endif %}
         </div>
     </div>
 
-    <div class="listings-container">
-        <div class="listing">
-            <div class="listings-menu">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#notes-en-cours">Notes en attente</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#notes-validées">Notes validées</a>
-                    </li>
-                </ul>
-            </div>
-            <div id="myTabContent" class="tab-content">
+    {% if user.roles == ["ROLE_USER"] %}
+        <div class="listings-container">
 
-                <div class="tab-pane fade show active" id="notes-en-cours">
-                    <div class="notes-listing">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Montant</th>
-                                    <th scope="col" class="smartphone-device tablet-device">Type</th>
-                                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for note in notes %}
-                                    {% if note.statut == 'En cours' %}
-                                        <tr class="table-warning">
-                                            <td>{{ note.date | date('d/m/y')}}</td>
-                                            <td>{{ note.montant }}
-                                                €</td>
-                                            <td class="smartphone-device tablet-device">{{ note.type }}</td>
-
-                                            {% if note.scan %}
-                                                <td class="smartphone-device tablet-device">oui</td>
-                                            {% else %}
-                                                <td class="smartphone-device tablet-device">non</td>
-                                            {% endif %}
-                                            <td>
-                                                <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
-                                            </td>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="listing">
+                <div class="listings-menu">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#notes-en-cours">Notes en attente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#notes-validées">Notes validées</a>
+                        </li>
+                    </ul>
                 </div>
+                <div id="myTabContent" class="tab-content">
 
-                <div class="tab-pane fade" id="notes-validées">
-                    <div class="notes-listing">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Montant</th>
-                                    <th scope="col" class="smartphone-device tablet-device">Type</th>
-                                    <th scope="col" class="smartphone-device tablet-device">Scan</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for note in notes %}
-                                    {% if note.statut == 'Validée' %}
-                                        <tr class="table-success">
-                                            <td>{{ note.date | date('d/m/y')}}</td>
-                                            <td>{{ note.montant }}
-                                                €</td>
-                                            <td class="smartphone-device tablet-device">{{ note.type }}</td>
-                                            {% if note.scan %}
-                                                <td class="smartphone-device tablet-device">oui</td>
-                                            {% else %}
-                                                <td class="smartphone-device tablet-device">non</td>
-                                            {% endif %}
-                                            <td>
-                                                <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
-                                            </td>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                    <div class="tab-pane fade show active" id="notes-en-cours">
+                        <div class="notes-listing">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Montant</th>
+                                        <th scope="col" class="smartphone-device tablet-device">Type</th>
+                                        <th scope="col" class="smartphone-device tablet-device">Scan</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for note in notes %}
+                                        {% if note.statut == 'En cours' %}
+                                            <tr class="table-warning">
+                                                <td>{{ note.date | date('d/m/y')}}</td>
+                                                <td>{{ note.montant }}
+                                                    €</td>
+                                                <td class="smartphone-device tablet-device">{{ note.type }}</td>
+
+                                                {% if note.scan %}
+                                                    <td class="smartphone-device tablet-device">oui</td>
+                                                {% else %}
+                                                    <td class="smartphone-device tablet-device">non</td>
+                                                {% endif %}
+                                                <td>
+                                                    <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    <div class="tab-pane fade" id="notes-validées">
+                        <div class="notes-listing">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Montant</th>
+                                        <th scope="col" class="smartphone-device tablet-device">Type</th>
+                                        <th scope="col" class="smartphone-device tablet-device">Scan</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for note in notes %}
+                                        {% if note.statut == 'Validée' %}
+                                            <tr class="table-success">
+                                                <td>{{ note.date | date('d/m/y')}}</td>
+                                                <td>{{ note.montant }}
+                                                    €</td>
+                                                <td class="smartphone-device tablet-device">{{ note.type }}</td>
+                                                {% if note.scan %}
+                                                    <td class="smartphone-device tablet-device">oui</td>
+                                                {% else %}
+                                                    <td class="smartphone-device tablet-device">non</td>
+                                                {% endif %}
+                                                <td>
+                                                    <a href="{{ path('admin_note_show', {'id': note.id}) }}" class="btn btn-primary">Consulter</a>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
-
+        {% endif %}
     {% endblock %}

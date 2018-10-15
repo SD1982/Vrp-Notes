@@ -1,7 +1,10 @@
 @media all and (max-width: 600px) {
-    .smartphone-device {
+
+    .smartphone-device,
+    .note-scan-form {
         display: none;
     }
+
 }
 
 @media all and (min-width: 600px) {}
@@ -9,7 +12,7 @@
 @media all and (min-width: 768px) {}
 
 body {
-    background-color: #272727;
+    background-color: white;
 }
 
 .container {
@@ -27,7 +30,7 @@ body {
 
 /*------------- pages headers --------------------*/
 
-.login-form,
+
 .home-pages-header,
 .waiting-notes-pages-header,
 .validated-notes-pages-header,
@@ -38,7 +41,8 @@ body {
 .employee-form-page-header,
 .map-page-header,
 .message-form-pages-header {
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
+    background-color: #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -46,10 +50,9 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
 }
 
-/*------------- pages h1,h2 --------------------*/
+/*------------- pages h1,h2,h3 --------------------*/
 
 .home-pages-header>h1,
 .waiting-notes-pages-header>h1,
@@ -62,10 +65,14 @@ body {
 .employee-form-page-header>h1,
 .map-page-header>h1,
 .message-form-pages-header>h1,
-.note-scan-form>h2,
+.note-scan-form>h2 {
+    color: whitesmoke;
+}
+
+
 .message-box-title>h3,
 .actu-box-title>h3 {
-    color: wheat;
+    color: #436D99;
 }
 
 /*------------- paginated listing --------------------*/
@@ -74,7 +81,7 @@ body {
 .validated-notes-listing,
 .employee-listing {
     overflow: hidden;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -103,36 +110,34 @@ body {
 }
 
 .page-item.active .page-link {
-    border: 1px solid wheat;
+    border: 1px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    background-color: wheat;
+    background-color: #436D99;
     color: #272727;
 }
 
 .page-link {
-    border: 1px solid wheat;
+    border: 1px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-    background-color: #272727;
-    color: wheat;
+    color: #436D99;
 }
 
 /*------------- global page content --------------------*/
-.message-box-title,
-.actu-box-title,
 .commercial-infos,
+.login-form,
 .user-registration-form,
 .note-global-content,
 .note-text-content,
 .message-form-content {
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -140,12 +145,12 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }
 
 .listings-container {
     overflow: hidden;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -160,15 +165,8 @@ body {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
 }
 
 .message-box,
@@ -178,7 +176,7 @@ body {
     text-align: center;
     min-width: 300px;
     width: 100%;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -186,11 +184,11 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }
 
 .message {
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -198,11 +196,27 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
+}
+
+.message-box-title,
+.actu-box-title,
+    {
+    border: 2px solid #436D99;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    color: #436D99;
+    background-color: #436D99;
 }
 
 /*------------- add / update notes form page --------------------*/
 .note-form {
+    width: 99%;
     -ms-flex-pack: center;
     justify-content: center;
     text-align: center;
@@ -217,22 +231,15 @@ body {
 }
 
 .note-form-content {
-    min-width: 350px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     -ms-flex-pack: center;
     justify-content: center;
-    border: 2px solid wheat;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }
 
 .note-description-form,
@@ -244,7 +251,7 @@ body {
     text-align: -ms-center;
     text-align: -moz-center;
     width: 90%;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -253,13 +260,20 @@ body {
     height: auto;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
+}
+
+.note-description-form-content,
+.note-coordonnées-form-content {
+    width: 90%;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .note-lat-lng-form,
 .note-scan-form {
-    width: 90%;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -268,7 +282,7 @@ body {
     height: auto;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }
 
 .note-form-button,
@@ -292,7 +306,7 @@ body {
 /*------------- individual note map --------------------*/
 #map {
     height: 400px;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -300,14 +314,14 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }
 
 /*------------- map page --------------------*/
 
 #note-infos {
     display: none;
-    border: 2px solid wheat;
+    border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -315,5 +329,5 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: wheat;
+    color: #436D99;
 }

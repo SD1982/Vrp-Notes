@@ -11,29 +11,31 @@
 
     <div class="home-page-content">
 
-        <div class="message-box">
+        {% if messagesNonLus %}
+            <div class="message-box">
 
-            <div class="message-box-title">
-                <h3>Messages non lus :</h3>
-            </div>
-
-            {% for messageNonLus in messagesNonLus %}
-
-                <div class="message">
-                    <p>De
-                        {{ messageNonLus.auteur.name}}
-                        le
-                        {{ messageNonLus.createdAt | date('d/m/y')}}
-                        à
-                        {{ messageNonLus.createdAt | date('h')}}:{{ messageNonLus.createdAt | date('m')}}</p>
-                    <br/>
-                    <p>{{ messageNonLus.content}}</p>
-                    <br/>
+                <div class="message-box-title">
+                    <h3>Messages non lus :</h3>
                 </div>
 
-            {% endfor %}
+                {% for messageNonLus in messagesNonLus %}
 
-        </div>
+                    <div class="message">
+                        <p>De
+                            {{ messageNonLus.auteur.name}}
+                            le
+                            {{ messageNonLus.createdAt | date('d/m/y')}}
+                            à
+                            {{ messageNonLus.createdAt | date('h')}}:{{ messageNonLus.createdAt | date('m')}}</p>
+                        <br/>
+                        <p>{{ messageNonLus.content}}</p>
+                        <br/>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        {% endif %}
 
         <div class="actu-box">
 
