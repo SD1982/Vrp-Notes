@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Note;
 use App\Entity\User;
 use App\Form\ScanType;
+use App\Entity\Article;
 use App\Entity\Message;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,13 @@ class AdminController extends Controller
             "statut" => 'Non lu'
         ]);
 
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
         return $this->render('admin/home.html.twig', [
             'user' => $user,
-            'messagesNonLus' => $messagesNonLus
+            'messagesNonLus' => $messagesNonLus,
+            'articles' => $articles
         ]);
 
     }

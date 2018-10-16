@@ -44,4 +44,30 @@ class ArticleController extends AbstractController
             'editMode' => $article->getId() !== null,
         ]);
     }
+
+    /**   
+     * @Route("/admin/article/{id}/delete", name="article_delete")
+     */
+    public function articleDelete($id, ObjectManager $manager)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($id);
+
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
+        return $this->redirectToRoute('admin_home');
+
+
+        return $this->render('admin/home.html.twig', [
+            'user' => $user,
+            'messagesNonLus' => $messagesNonLus,
+            'articles' => $articles
+        ]);
+    }
 }

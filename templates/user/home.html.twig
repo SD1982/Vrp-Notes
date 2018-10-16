@@ -30,6 +30,8 @@
                         <br/>
                         <p>{{ messageNonLus.content}}</p>
                         <br/>
+                        <a href="{{ path('message_change_statut', {'id': messageNonLus.id}) }}" class="btn btn-primary action-button">Declarer lu</a>
+                        <a href="{{ path('message_delete', {'id': messageNonLus.id}) }}" class="btn btn-danger action-button">Supprimer</a>
                     </div>
 
                 {% endfor %}
@@ -42,6 +44,25 @@
             <div class="actu-box-title">
                 <h3>Dernières actus de l'entreprise :</h3>
             </div>
+
+            {% for article in articles %}
+
+                <div class="article">
+
+                    <div class="article-header">
+                        <p>
+                            <h2>{{ article.title}}</h2>
+                            le
+                            {{ article.createdAt | date('d/m/y')}}</p>
+                    </div>
+                    <br/>
+                    <div class="article-content">
+                        <p>{{ article.content}}</p>
+                    </div>
+
+                </div>
+
+            {% endfor %}
 
         </div>
 

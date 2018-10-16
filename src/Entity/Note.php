@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use Webmozart\Assert\Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
@@ -21,11 +23,16 @@ class Note
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date()
      */
     private $date;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Type(
+     *     type="float",
+     *     message="Cette valeur n'est pas valable."
+     * )
      */
     private $montant;
 
@@ -46,21 +53,28 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255, minMessage="3 caractères minimum et 255 maximum !!")
      */
     private $adress;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Cette valeur n'est pas valable."
+     * )
      */
     private $postcode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255, minMessage="3 caractères minimum et 255 maximum !!")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Country()
      */
     private $country;
 
@@ -76,6 +90,7 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=8, max=255, minMessage="8 caractères minimum et 255 maximum !!")
      */
     private $description;
 

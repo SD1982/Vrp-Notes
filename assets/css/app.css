@@ -40,7 +40,8 @@ body {
 .commercial-page-header,
 .employee-form-page-header,
 .map-page-header,
-.message-form-pages-header {
+.message-form-pages-header,
+.article-form-pages-header {
     border: 2px solid #436D99;
     background-color: #436D99;
     border-radius: 15px;
@@ -61,15 +62,15 @@ body {
 .note-form-pages-header>h1,
 .note-pages-header>h1,
 .commercial-page-header>h1,
-.note-text-content>h1,
 .employee-form-page-header>h1,
 .map-page-header>h1,
+.article-form-pages-header>h1,
 .message-form-pages-header>h1,
 .note-scan-form>h2 {
     color: whitesmoke;
 }
 
-
+.note-text-content>h1,
 .message-box-title>h3,
 .actu-box-title>h3 {
     color: #436D99;
@@ -136,7 +137,8 @@ body {
 .user-registration-form,
 .note-global-content,
 .note-text-content,
-.message-form-content {
+.message-form-content,
+.article-form-content {
     border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -145,7 +147,7 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: #436D99;
+    color: black;
 }
 
 .listings-container {
@@ -184,10 +186,11 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: #436D99;
+    color: black;
 }
 
-.message {
+.message,
+.article {
     border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -196,12 +199,13 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: #436D99;
+    color: black;
 }
 
 .message-box-title,
 .actu-box-title,
     {
+    background-color: #436D99;
     border: 2px solid #436D99;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -210,8 +214,8 @@ body {
     -o-border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    color: #436D99;
-    background-color: #436D99;
+    color: black;
+
 }
 
 /*------------- add / update notes form page --------------------*/

@@ -19,12 +19,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      fields={"email"},
  *      message="Cet email est deja utilisé !",
  * )
+ * @UniqueEntity(
+ *      fields={"rib"},
+ *      message="Ce rib est deja utilisé !",
+ * )
  */
 class User implements UserInterface
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue() 
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -80,6 +84,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Iban(
+     *     message="This is not a valid International Bank Account Number (IBAN)."
+     * )
+     * @Assert\Bic()
      */
     private $rib;
 
@@ -87,16 +95,6 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $embauche;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="author", orphanRemoval=true)
-     */
-    private $messages;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="recipient")
-     */
-    private $receivedMessages;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="auteur", orphanRemoval=true)
@@ -111,8 +109,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->notes = new ArrayCollection();
-        $this->messages = new ArrayCollection();
-        $this->receivedMessages = new ArrayCollection();
         $this->messagesSend = new ArrayCollection();
         $this->messagesReceived = new ArrayCollection();
     }
@@ -274,43 +270,12 @@ class User implements UserInterface
     /**
      * @return Collection|Message[]
      */
-    public function getMessages() : Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message) : self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message) : self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getAuthor() === $this) {
-                $message->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessagesSend(): Collection
+    public function getMessagesSend() : Collection
     {
         return $this->messagesSend;
     }
 
-    public function addMessagesSend(Message $messagesSend): self
+    public function addMessagesSend(Message $messagesSend) : self
     {
         if (!$this->messagesSend->contains($messagesSend)) {
             $this->messagesSend[] = $messagesSend;
@@ -320,7 +285,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeMessagesSend(Message $messagesSend): self
+    public function removeMessagesSend(Message $messagesSend) : self
     {
         if ($this->messagesSend->contains($messagesSend)) {
             $this->messagesSend->removeElement($messagesSend);
@@ -336,12 +301,12 @@ class User implements UserInterface
     /**
      * @return Collection|Message[]
      */
-    public function getMessagesReceived(): Collection
+    public function getMessagesReceived() : Collection
     {
         return $this->messagesReceived;
     }
 
-    public function addMessagesReceived(Message $messagesReceived): self
+    public function addMessagesReceived(Message $messagesReceived) : self
     {
         if (!$this->messagesReceived->contains($messagesReceived)) {
             $this->messagesReceived[] = $messagesReceived;
@@ -351,7 +316,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeMessagesReceived(Message $messagesReceived): self
+    public function removeMessagesReceived(Message $messagesReceived) : self
     {
         if ($this->messagesReceived->contains($messagesReceived)) {
             $this->messagesReceived->removeElement($messagesReceived);

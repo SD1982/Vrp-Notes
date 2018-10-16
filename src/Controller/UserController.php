@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Note;
 use App\Form\NoteType;
 use App\Form\ScanType;
+use App\Entity\Article;
 use App\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -34,9 +35,13 @@ class UserController extends Controller
             "statut" => 'Non lu'
         ]);
 
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
         return $this->render('user/home.html.twig', [
             'user' => $user,
-            'messagesNonLus' => $messagesNonLus
+            'messagesNonLus' => $messagesNonLus,
+            'articles' => $articles
         ]);
     }
 

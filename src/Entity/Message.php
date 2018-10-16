@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
@@ -35,6 +37,7 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=8, max=255, minMessage="8 caractères minimum et 255 maximum !!")
      */
     private $content;
 
@@ -43,65 +46,65 @@ class Message
      */
     private $statut;
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt() : ? \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt) : self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getAuteur(): ?User
+    public function getAuteur() : ? User
     {
         return $this->auteur;
     }
 
-    public function setAuteur(?User $auteur): self
+    public function setAuteur(? User $auteur) : self
     {
         $this->auteur = $auteur;
 
         return $this;
     }
 
-    public function getDestinataire(): ?User
+    public function getDestinataire() : ? User
     {
         return $this->destinataire;
     }
 
-    public function setDestinataire(?User $destinataire): self
+    public function setDestinataire(? User $destinataire) : self
     {
         $this->destinataire = $destinataire;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent() : ? string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content) : self
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut() : ? string
     {
         return $this->statut;
     }
 
-    public function setStatut(string $statut): self
+    public function setStatut(string $statut) : self
     {
         $this->statut = $statut;
 
